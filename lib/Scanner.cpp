@@ -7,6 +7,8 @@ Scanner::Scanner(std::string* source)
     this->line = 1;
 
     this->source = source;
+
+    tokens = new std::vector<Token*>();
 }
 
 std::vector<Token*>* Scanner::scanTokens() 
@@ -14,7 +16,7 @@ std::vector<Token*>* Scanner::scanTokens()
     while (!isAtEnd()) {
 
         start = current;
-        // scanToken();
+        scanToken();
     }
 
     // Adding End Of File
@@ -26,11 +28,14 @@ void Scanner::addToken(TokenType type)
 {
     addToken(type, nullptr);
 }
-
+#include <iostream>
 void Scanner::addToken(TokenType type, std::string* literal)
 {
-    std::string text = source->substr(start, current - start);
-    tokens->push_back(new Token(type, &text, literal, line));
+    std::string* text = new std::string(source->substr(start, current - start));
+
+    std::cout << *text << std::endl;
+
+    tokens->push_back(new Token(type, text, literal, line));
 }
 
 char Scanner::advance()
@@ -54,6 +59,10 @@ void Scanner::scanToken()
         case '+': addToken(TokenType::PLUS); break;
         case ';': addToken(TokenType::SEMICOLON); break;
         case '*': addToken(TokenType::STAR); break;
+
+        default:
+            // Error
+            break;
     }
 }
 

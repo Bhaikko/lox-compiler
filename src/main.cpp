@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "./../include/Scanner.h"
+
 bool hadError = true;
 
 void report(int line, std::string where, std::string message)
@@ -27,15 +29,17 @@ void error(int line, std::string message)
 // Scans the source code and categorizes token
 void run(std::string* srcCode)
 {
-    std::cout << *srcCode << std::endl;
-    /*
-        Scanner* scanner = new Scanner(srcCode);
-        std::vector<Token> tokens = scanner.scanTokens();
-
-        for (Token token : tokens) {
-            std::cout << token << std::endl;
-        }
-    */
+    
+    Scanner* scanner = new Scanner(srcCode);
+    std::vector<Token*>* tokens = scanner->scanTokens();
+    
+    // std::cout << tokens->size() << std::endl;
+    for (Token* token : (*tokens)) {
+    
+        // std::cout << *token << std::endl;
+        
+    }
+    
 }
 
 void runFile(char* filepath)

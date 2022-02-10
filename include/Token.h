@@ -5,7 +5,7 @@
 #include "./TokenType.h"
 
 class Token {
-    private:
+    public:
         TokenType type;
         std::string* lexeme;
         std::string* literal;
