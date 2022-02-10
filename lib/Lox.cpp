@@ -10,7 +10,8 @@ void Lox::report(int line, std::string where, std::string message)
         "] Error"   <<
         where       <<
         ": "        <<
-        message;
+        message     <<
+    std::endl;
 
     Lox::hadError = true;
 }
@@ -27,7 +28,7 @@ void Lox::run(std::string* srcCode)
     
     // std::cout << tokens->size() << std::endl;
     for (Token* token : (*tokens)) {
-        
+        // std::cout << token->type << std::endl;
         // std::cout << *token << std::endl;
         
     }

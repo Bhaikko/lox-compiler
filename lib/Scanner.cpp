@@ -59,7 +59,7 @@ void Scanner::scanToken()
 
         default:
             // Error
-            // Lox.Error(l)
+            Lox::error(line, "Unexpected character. ");
             break;
     }
 }
