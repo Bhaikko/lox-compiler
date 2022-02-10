@@ -45,5 +45,5 @@ void Scanner::scanToken()
 
 bool Scanner::isAtEnd()
 {
-    return current >= source.length();
+    return (unsigned)current >= source.length();
 }

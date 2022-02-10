@@ -25,8 +25,9 @@ void error(int line, std::string message)
 }
 
 // Scans the source code and categorizes token
-void run(std::string srcCode)
+void run(std::string* srcCode)
 {
+    std::cout << *srcCode << std::endl;
     /*
         Scanner* scanner = new Scanner(srcCode);
         std::vector<Token> tokens = scanner.scanTokens();
@@ -47,7 +48,7 @@ void runFile(char* filepath)
 
         std::string content = buffer.str();
 
-        run(content);
+        run(&content);
 
         if (hadError) {
             exit(1);
@@ -67,7 +68,7 @@ void runPrompt()
             break;
         }
 
-        run(line);
+        run(&line);
         hadError = false;
     }
 }
