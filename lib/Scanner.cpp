@@ -32,9 +32,6 @@ void Scanner::addToken(TokenType type)
 void Scanner::addToken(TokenType type, std::string* literal)
 {
     std::string* text = new std::string(source->substr(start, current - start));
-
-    std::cout << *text << std::endl;
-
     tokens->push_back(new Token(type, text, literal, line));
 }
 
@@ -62,6 +59,7 @@ void Scanner::scanToken()
 
         default:
             // Error
+            // Lox.Error(l)
             break;
     }
 }
