@@ -28,7 +28,7 @@ void error(int line, std::string message)
 void run(std::string srcCode)
 {
     /*
-        Scanner scanner(srcCode);
+        Scanner* scanner = new Scanner(srcCode);
         std::vector<Token> tokens = scanner.scanTokens();
 
         for (Token token : tokens) {

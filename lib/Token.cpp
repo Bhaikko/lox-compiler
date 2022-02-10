@@ -7,8 +7,3 @@ Token::Token(TokenType type, std::string lexeme, std::string literal, int line)
     this->literal = literal;
     this->line = line;
 }
-
-std::string Token::toString() 
-{
-    return type + " " + lexeme + " " + literal;
-}
