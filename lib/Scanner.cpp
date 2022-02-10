@@ -1,6 +1,6 @@
 #include "./../include/Scanner.h"
 
-Scanner::Scanner(std::string source) 
+Scanner::Scanner(std::string* source) 
 {
     this->start = 0;
     this->current = 0;
@@ -9,7 +9,7 @@ Scanner::Scanner(std::string source)
     this->source = source;
 }
 
-std::vector<Token> Scanner::scanTokens() 
+std::vector<Token*>* Scanner::scanTokens() 
 {
     while (!isAtEnd()) {
 
@@ -17,25 +17,26 @@ std::vector<Token> Scanner::scanTokens()
         // scanToken();
     }
 
-    tokens.push_back(Token(TokenType::EOF_, "", "", line));
+    // Adding End Of File
+    tokens->push_back(new Token(TokenType::EOF_, nullptr, nullptr, line));
     return tokens;
 }
 
 void Scanner::addToken(TokenType type)
 {
-    addToken(type, "");
+    addToken(type, nullptr);
 }
 
-void Scanner::addToken(TokenType type, std::string literal)
+void Scanner::addToken(TokenType type, std::string* literal)
 {
-    std::string text = source.substr(start, current - start);
-    tokens.push_back(Token(type, text, literal, line));
+    std::string text = source->substr(start, current - start);
+    tokens->push_back(new Token(type, &text, literal, line));
 }
 
 char Scanner::advance()
 {
     current++;
-    return source[current - 1];
+    return (*source)[current - 1];
 }
 
 void Scanner::scanToken()
@@ -45,5 +46,5 @@ void Scanner::scanToken()
 
 bool Scanner::isAtEnd()
 {
-    return (unsigned)current >= source.length();
+    return (unsigned)current >= source->length();
 }

@@ -12,16 +12,16 @@ class Scanner {
             current,    // points to character being considered
             line;
 
-        std::string source;         // Source Code
-        std::vector<Token> tokens;
+        std::string* source;         // Source Code
+        std::vector<Token*>* tokens;
 
     public:
-        Scanner(std::string source);
-        std::vector<Token> scanTokens();
+        Scanner(std::string* source);
+        std::vector<Token*>* scanTokens();
 
     private:
         void addToken(TokenType type);
-        void addToken(TokenType type, std::string literal);
+        void addToken(TokenType type, std::string* literal);
         char advance();
         void scanToken();
         bool isAtEnd();

@@ -7,12 +7,12 @@
 class Token {
     private:
         TokenType type;
-        std::string lexeme;
-        std::string literal;
+        std::string* lexeme;
+        std::string* literal;
         int line;
 
     public:
-        Token(TokenType type, std::string lexeme, std::string literal, int line);
+        Token(TokenType type, std::string* lexeme, std::string* literal, int line);
         
     public:
     // Overloads
