@@ -21,6 +21,28 @@ std::vector<Token> Scanner::scanTokens()
     return tokens;
 }
 
+void Scanner::addToken(TokenType type)
+{
+    addToken(type, "");
+}
+
+void Scanner::addToken(TokenType type, std::string literal)
+{
+    std::string text = source.substr(start, current - start);
+    tokens.push_back(Token(type, text, literal, line));
+}
+
+char Scanner::advance()
+{
+    current++;
+    return source[current - 1];
+}
+
+void Scanner::scanToken()
+{
+
+}
+
 bool Scanner::isAtEnd()
 {
     return current >= source.length();
