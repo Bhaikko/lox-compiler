@@ -98,9 +98,13 @@ void Scanner::scanToken()
             line++;
             break;
 
+        case '"':
+            string();
+            break;
+
         default:
             // Error
-            Lox::error(line, "Unexpected character. ");
+            // Lox::error(line, "Unexpected character. ");
             break;
     }
 }
@@ -137,6 +141,34 @@ char Scanner::peek()
         return '\0';
     }
     return source->at(current);
+}
+
+void Scanner::string()
+{
+    while (peek() != '"' && !isAtEnd()) {
+        // Lox supports multiline Strings
+        // Checking for single line string is more complex
+        if (peek() == '\n') {
+            line++;
+        }
+
+        advance();
+    }
+
+    if (isAtEnd()) {
+        Lox::error(line, "Unterminated string.");
+        return;
+    }
+
+    // The closing "
+    advance();
+
+    std::string* value = new std::string(
+        source->substr(start + 1, current - start - 2)
+    );
+
+    std::cout << *value << std::endl;
+    addToken(TokenType::STRING, value);
 }
 
 bool Scanner::isAtEnd()

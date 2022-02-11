@@ -28,4 +28,5 @@ class Scanner {
         bool isAtEnd();
         bool match(char expected);
         char peek();
+        void string();
 };

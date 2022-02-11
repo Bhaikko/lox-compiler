@@ -9,8 +9,10 @@ Token::Token(TokenType type, std::string* lexeme, std::string* literal, int line
 }
 
 std::ostream& operator<<(std::ostream& os, const Token& t) {
-   
-    os << t.type + " " + *(t.lexeme) + " " + *(t.literal);
+    std::string lexemeStr = t.lexeme ? *(t.lexeme) : "";
+    std::string literalStr = t.literal ? *(t.literal) : "";
+
+    os << t.type + " " + lexemeStr + " " + literalStr;
     return os;
 }
 

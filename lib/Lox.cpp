@@ -29,7 +29,7 @@ void Lox::run(std::string* srcCode)
     // std::cout << tokens->size() << std::endl;
     for (Token* token : (*tokens)) {
         // std::cout << token->type << std::endl;
-        // std::cout << *token << std::endl;
+        std::cout << *token << std::endl;
         
     }
 }
