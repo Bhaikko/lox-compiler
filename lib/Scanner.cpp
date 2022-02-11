@@ -9,6 +9,31 @@ Scanner::Scanner(std::string* source)
     this->source = source;
 
     tokens = new std::vector<Token*>();
+
+    fillKeywords();
+}
+
+void Scanner::fillKeywords()
+{
+    keywords = new std::unordered_map<std::string, TokenType>();
+
+    (*keywords)["and"] = TokenType::AND;
+    (*keywords)["class"] = TokenType::CLASS;
+    (*keywords)["else"] = TokenType::ELSE;
+    (*keywords)["false"] = TokenType::FALSE;
+    (*keywords)["for"] = TokenType::FOR;
+    (*keywords)["fun"] = TokenType::FUN;
+    (*keywords)["if"] = TokenType::IF;
+    (*keywords)["nil"] = TokenType::NIL;
+    (*keywords)["or"] = TokenType::OR;
+    (*keywords)["print"] = TokenType::PRINT;
+    (*keywords)["return"] = TokenType::RETURN;
+    (*keywords)["super"] = TokenType::SUPER;
+    (*keywords)["this"] = TokenType::THIS;
+    (*keywords)["true"] = TokenType::TRUE;
+    (*keywords)["var"] = TokenType::VAR;
+    (*keywords)["while"] = TokenType::WHILE;
+
 }
 
 std::vector<Token*>* Scanner::scanTokens() 
@@ -109,11 +134,14 @@ void Scanner::scanToken()
             // Handled like this because every digit switch case is tedious
             if (isDigit(c)) {
                 number();
+            } else if (isAlpha(c)) {
+                identifier();
             } else {
                 // Error
                 Lox::error(line, "Unexpected character. ");
-                break;
             }
+
+            break;
             
     }
 }
@@ -192,6 +220,33 @@ void Scanner::string()
 bool Scanner::isDigit(char c)
 {
     return c >= '0' && c <= '9';
+}
+
+bool Scanner::isAlpha(char c)
+{
+    // Since identifier can either start with alphabet or underscore
+    return  (c >= 'a' && c <= 'z') ||
+            (c >= 'A' && c <= 'Z') ||
+             c == '_';
+}
+
+void Scanner::identifier()
+{
+    while (isAlphaNumeric(peek())) {
+        advance();
+    }
+
+    std::string text = source->substr(start, current - start);
+    if (keywords->find(text) == keywords->end()) {
+        addToken(TokenType::IDENTIFIER);
+    } else {
+        addToken(keywords->at(text));
+    }
+}
+
+bool Scanner::isAlphaNumeric(char c)
+{
+    return isAlpha(c) || isDigit(c);
 }
 
 void Scanner::number()

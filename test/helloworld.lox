@@ -1,4 +1,6 @@
-"hell" "hello world"
-123
-123.323
-() () => =
+var msg = "Hello world";
+
+// This is a comment 
+var a = 2.3;
+var x = a + b;
+print msg;
