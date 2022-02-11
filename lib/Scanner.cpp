@@ -28,7 +28,7 @@ void Scanner::addToken(TokenType type)
 {
     addToken(type, nullptr);
 }
-#include <iostream>
+
 void Scanner::addToken(TokenType type, std::string* literal)
 {
     std::string* text = new std::string(source->substr(start, current - start));
@@ -46,6 +46,7 @@ void Scanner::scanToken()
     char c = advance();
 
     switch (c) {
+        // Matching Single Length possible lexemes
         case '(': addToken(TokenType::LEFT_PAREN); break;
         case ')': addToken(TokenType::RIGHT_PAREN); break;
         case '{': addToken(TokenType::LEFT_BRACE); break;
@@ -57,11 +58,85 @@ void Scanner::scanToken()
         case ';': addToken(TokenType::SEMICOLON); break;
         case '*': addToken(TokenType::STAR); break;
 
+        // Matching 2 Length possible lexemes
+        case '!':
+            addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
+            break;
+        case '=':
+            addToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
+            break;
+        case '<':
+            addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
+            break;
+        case '>':
+            addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
+            break;
+
+        // Handling '/'
+        // Division can also lead to Comment '//'
+        case '/':
+            if (match('/')) {
+                // Comment found, skip the whole line
+                // Consume till end of line
+                // Token for a comment is not Added.
+                while (peek() != '\n' && !isAtEnd()) {
+                    advance();
+                } 
+            } else {
+                // lexeme is Division
+                addToken(TokenType::SLASH);
+            }
+            break;
+
+        case ' ':
+        case '\r':  // Carriage Return Character 
+        case '\t':
+            // Ignore Whitespaces
+            break;
+
+        case '\n':
+            line++;
+            break;
+
         default:
             // Error
             Lox::error(line, "Unexpected character. ");
             break;
     }
+}
+
+/**
+ * @brief Matches more than one length lexemes for possibility of token. 
+ * Matches for lexeme specific code.
+ * @param expected - Character to match with
+ * @return true - more than one length lexeme
+ * @return false - one length lexeme
+ */
+bool Scanner::match(char expected)
+{
+    if (isAtEnd()) {
+        return false;
+    }
+
+    if (source->at(current) != expected) {
+        return false;
+    }
+
+    current++;
+    return true;
+}
+
+/**
+ * @brief Difference between peek() and advance() is this doesn't consume current character
+ * 
+ * @return char 
+ */
+char Scanner::peek()
+{
+    if (isAtEnd()) {
+        return '\0';
+    }
+    return source->at(current);
 }
 
 bool Scanner::isAtEnd()
