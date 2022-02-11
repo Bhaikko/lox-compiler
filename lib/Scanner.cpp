@@ -101,12 +101,22 @@ void Scanner::scanToken()
         // Division can also lead to Comment '//'
         case '/':
             if (match('/')) {
+                // Line Comment Support
                 // Comment found, skip the whole line
                 // Consume till end of line
                 // Token for a comment is not Added.
                 while (peek() != '\n' && !isAtEnd()) {
                     advance();
                 } 
+            } else if (match('*')) {
+                // Block comment support
+                while (peek() != '*' && peekNext() != '/' && !isAtEnd()) {
+                    if (advance() == '\n') {
+                        line++;
+                    }
+                }
+                // To handle last '*/'
+                advance(); advance();
             } else {
                 // lexeme is Division
                 addToken(TokenType::SLASH);

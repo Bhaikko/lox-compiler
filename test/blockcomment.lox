@@ -1,0 +1,9 @@
+var msg = "Hello world";
+
+// This is a comment 
+/* 
+    this is a block comment
+*/
+var a = 2.3;
+var x = a + b;
+print msg;
