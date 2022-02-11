@@ -88,6 +88,7 @@ void Scanner::scanToken()
             }
             break;
 
+        // Handling White spaces
         case ' ':
         case '\r':  // Carriage Return Character 
         case '\t':
@@ -98,14 +99,22 @@ void Scanner::scanToken()
             line++;
             break;
 
+        // Handling Strings
         case '"':
             string();
             break;
 
         default:
-            // Error
-            // Lox::error(line, "Unexpected character. ");
-            break;
+            // Handling Numbers
+            // Handled like this because every digit switch case is tedious
+            if (isDigit(c)) {
+                number();
+            } else {
+                // Error
+                Lox::error(line, "Unexpected character. ");
+                break;
+            }
+            
     }
 }
 
@@ -143,6 +152,15 @@ char Scanner::peek()
     return source->at(current);
 }
 
+char Scanner::peekNext()
+{
+    if ((unsigned)current + 1 >= source->length()) {
+        return '\0';
+    }
+
+    return source->at(current + 1);
+}
+
 void Scanner::string()
 {
     while (peek() != '"' && !isAtEnd()) {
@@ -169,6 +187,35 @@ void Scanner::string()
 
     std::cout << *value << std::endl;
     addToken(TokenType::STRING, value);
+}
+
+bool Scanner::isDigit(char c)
+{
+    return c >= '0' && c <= '9';
+}
+
+void Scanner::number()
+{
+    while (isDigit(peek())) {
+        advance();
+    }
+
+    // Looking for Fractional Part
+    if (peek() == '.' && isDigit(peekNext())) {
+        // Consume the '.'
+        advance();
+
+        while (isDigit(peek())) {
+            advance();
+        }
+    }
+
+    // Since cpp doesnt support Object type to store 
+    // String and Number as Object only
+    // Number is also stored as string and will be later typecasted
+    addToken(TokenType::NUMBER, new std::string(
+        source->substr(start, current - start)
+    ));
 }
 
 bool Scanner::isAtEnd()

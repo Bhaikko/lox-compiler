@@ -26,7 +26,13 @@ class Scanner {
         char advance();
         void scanToken();
         bool isAtEnd();
-        bool match(char expected);
         char peek();
+        char peekNext();
+    
+    // Methods for checking non one length lexemes
+    private:
+        bool match(char expected);
         void string();
+        bool isDigit(char c);
+        void number();
 };
