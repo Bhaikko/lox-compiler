@@ -12,7 +12,7 @@ std::ostream& operator<<(std::ostream& os, const Token& t) {
     std::string lexemeStr = t.lexeme ? *(t.lexeme) : "";
     std::string literalStr = t.literal ? *(t.literal) : "";
 
-    os << t.type + " " + lexemeStr + " " + literalStr;
+    os << std::to_string(t.type) + " " + lexemeStr + " " + literalStr;
     return os;
 }
 
