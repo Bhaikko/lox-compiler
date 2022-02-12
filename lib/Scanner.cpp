@@ -110,6 +110,7 @@ void Scanner::scanToken()
                 } 
             } else if (match('*')) {
                 // Block comment support
+                // Block comments does not support nested blocks
                 while (peek() != '*' && peekNext() != '/' && !isAtEnd()) {
                     if (advance() == '\n') {
                         line++;
@@ -281,6 +282,12 @@ void Scanner::number()
     addToken(TokenType::NUMBER, new std::string(
         source->substr(start, current - start)
     ));
+
+    // Converting String to double
+    /*
+        std::string num = "0.6";
+        double temp = ::atof(num.c_str());
+    */
 }
 
 bool Scanner::isAtEnd()

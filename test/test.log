@@ -1,0 +1,22 @@
+Hello world
+36 var 
+19 msg 
+13 = 
+20 "Hello world" Hello world
+8 ; 
+36 var 
+19 a 
+13 = 
+21 2.3 2.3
+8 ; 
+36 var 
+19 x 
+13 = 
+19 a 
+7 + 
+19 b 
+8 ; 
+31 print 
+19 msg 
+8 ; 
+38  
