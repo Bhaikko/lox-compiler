@@ -5,7 +5,7 @@
 
 /**
  * @brief Derived class of Expr. 
- * Will define grammar rules like this by indiviually mentioning the
+ * Will define grammar production rules like this by indiviually mentioning the
  * Non terminals and Terminals
  * 
  * Refer to /data/lox_grammar.md for Grammar Speicifications
