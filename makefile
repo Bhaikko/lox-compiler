@@ -3,8 +3,8 @@ RM = rm -f
 CPPFLAGS = -std=c++11 -Wall -g
 
 SRCS_CPP = \
-		./lib/Token.cpp \
-		./lib/Scanner.cpp \
+		./lib/Scanner/Token.cpp \
+		./lib/Scanner/Scanner.cpp \
 		./lib/Parser/Expr.cpp \
 		./lib/Parser/Binary.cpp \
 		./lib/Lox.cpp \

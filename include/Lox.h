@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "./Scanner.h"
+#include "./Scanner/Scanner.h"
 
 class Lox
 {

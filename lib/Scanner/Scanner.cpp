@@ -1,4 +1,4 @@
-#include "./../include/Scanner.h"
+#include "./../../include/Scanner/Scanner.h"
 
 Scanner::Scanner(std::string* source) 
 {

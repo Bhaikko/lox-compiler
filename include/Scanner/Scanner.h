@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "./Token.h"
-#include "./Lox.h"
+#include "./../Lox.h"
 
 class Scanner {
     private:    
