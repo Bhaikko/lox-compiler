@@ -62,12 +62,12 @@ def writeToCppFile(filePath, baseName, type):
         argumentString = argumentString[0: -2]    
 
         content = \
-f"#include \"./../../include/Parser/{baseName}.cpp\"\n\
-                                        \n\
-{baseName}:{baseName} ({argumentString})                       \n\
-{{                                      \n\
-    {bodyString}                                    \n\
-}};                                     \n\
+f"#include \"./../../include/Parser/{baseName}.h\"      \n\
+                                                        \n\
+{baseName}:{baseName} ({argumentString})                \n\
+{{                                                      \n\
+    {bodyString}                                        \n\
+}};                                                     \n\
 "
         f.write(content)
 
@@ -79,7 +79,7 @@ f"#include \"./../../include/Parser/{baseName}.cpp\"\n\
 def defineAst(hPath, cppPath, baseName, type):
     # print(hPath, cppPath, baseName, type)
     writeToHFile(hPath + "/" + baseName + ".h", baseName, type)
-    writeToCppFile(hPath + "/" + baseName + ".cpp", baseName, type)
+    writeToCppFile(cppPath + "/" + baseName + ".cpp", baseName, type)
     pass
 
 hPath = sys.argv[1]

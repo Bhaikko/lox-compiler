@@ -1,0 +1,6 @@
+{
+    "Binary": "Expr* left, Token* operator_, Expr* right",
+    "Grouping": "Expr* expression",
+    "Literal": "std::string* value",
+    "Unary": "Token* operator, Expr* right"
+}
