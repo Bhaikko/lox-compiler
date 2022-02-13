@@ -12,5 +12,3 @@ class Grouping
     public:                             
         Grouping(Expr* expression, Token* operator_);   
 };                                     
-                                        
-                                        

@@ -11,14 +11,12 @@ def writeToHFile(filePath, baseName, type):
     with open(filePath, 'w+') as f:
         classAttrs = type.split(":")[1].split(" ")
         classAttrs = [a for a in classAttrs if a not in ['']]
-        print(classAttrs)
 
         attrString = ""
         argumentString = ""
 
         i = 0
         while i < len(classAttrs):
-            print(i)
             attrString += classAttrs[i] + " " + classAttrs[i + 1] + ";  \n\t\t"
             argumentString += classAttrs[i] + " " + classAttrs[i + 1] + ", "
             i += 2
@@ -38,18 +36,50 @@ class {baseName}                        \n\
     public:                             \n\
         {baseName}({argumentString});   \n\
 }};                                     \n\
-                                        \n\
-                                        \n\
 "
 
         f.write(content)
 
         f.close()
+
+        print(f"{baseName}.h created.")
+    pass
+
+def writeToCppFile(filePath, baseName, type):
+    with open(filePath, 'w+') as f:
+        classAttrs = type.split(":")[1].split(" ")
+        classAttrs = [a for a in classAttrs if a not in ['']]
+
+        bodyString = ""
+        argumentString = ""
+
+        i = 0
+        while i < len(classAttrs):
+            argumentString += classAttrs[i] + " " + classAttrs[i + 1] + ", "
+            bodyString += f"this->{classAttrs[i + 1]} = {classAttrs[i + 1]};\n\t"
+            i += 2
+
+        argumentString = argumentString[0: -2]    
+
+        content = \
+f"#include \"./../../include/Parser/{baseName}.cpp\"\n\
+                                        \n\
+{baseName}:{baseName} ({argumentString})                       \n\
+{{                                      \n\
+    {bodyString}                                    \n\
+}};                                     \n\
+"
+        f.write(content)
+
+        f.close()
+
+        print(f"{baseName}.cpp created.")
     pass
 
 def defineAst(hPath, cppPath, baseName, type):
     # print(hPath, cppPath, baseName, type)
     writeToHFile(hPath + "/" + baseName + ".h", baseName, type)
+    writeToCppFile(hPath + "/" + baseName + ".cpp", baseName, type)
     pass
 
 hPath = sys.argv[1]
