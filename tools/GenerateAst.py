@@ -1,24 +1,45 @@
 # File to generate subclasses for Production rules of Grammar for LOX
 # Execution syntax python3 GenerateAst.py <.h path> <.cpp path> "<class_name> : <attr_type> <attr_identifier>"
-# Execution Example: python3 GenerateAst.py ./tools_test ./tools_test "Grouping   : Expr* expression"
+# Execution Example: python3 GenerateAst.py ./tools_test ./tools_test "Grouping   : Expr* expression Token* operator_"
 
+from ast import arg
 import sys
+
+from click import argument
 
 def writeToHFile(filePath, baseName, type):
     with open(filePath, 'w+') as f:
+        classAttrs = type.split(":")[1].split(" ")
+        classAttrs = [a for a in classAttrs if a not in ['']]
+        print(classAttrs)
+
+        attrString = ""
+        argumentString = ""
+
+        i = 0
+        while i < len(classAttrs):
+            print(i)
+            attrString += classAttrs[i] + " " + classAttrs[i + 1] + ";  \n\t\t"
+            argumentString += classAttrs[i] + " " + classAttrs[i + 1] + ", "
+            i += 2
+
+        argumentString = argumentString[0: -2]    
 
         content = \
-f"#pragma once                      \n\
-                                    \n\
-#include \"./../Scanner/Token.h\"   \n\
-#include \"./Expr.h\"               \n\
-                                    \n\
-class {baseName}                    \n\
-{{                                  \n\
-                                    \n\
-}};                                 \n\
-                                    \n\
-                                    \n\
+f"#pragma once                          \n\
+                                        \n\
+#include \"./../Scanner/Token.h\"       \n\
+#include \"./Expr.h\"                   \n\
+                                        \n\
+class {baseName}                        \n\
+{{                                      \n\
+    private:                            \n\
+        {attrString}                    \n\
+    public:                             \n\
+        {baseName}({argumentString});   \n\
+}};                                     \n\
+                                        \n\
+                                        \n\
 "
 
         f.write(content)
