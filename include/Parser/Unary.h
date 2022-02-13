@@ -3,12 +3,12 @@
 #include "./../Scanner/Token.h"       
 #include "./Expr.h"                   
                                         
-class Unary                        
+class Unary : public Expr                  
 {                                      
     private:                            
-        Token* operator,;  
+        Token* operator_;  
 		Expr* right;  
 		                    
     public:                             
-        Unary(Token* operator,, Expr* right);   
+        Unary(Token* operator_, Expr* right);   
 };                                     

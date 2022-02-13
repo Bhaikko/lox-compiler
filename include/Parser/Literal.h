@@ -3,7 +3,7 @@
 #include "./../Scanner/Token.h"       
 #include "./Expr.h"                   
                                         
-class Literal                        
+class Literal : public Expr                       
 {                                      
     private:                            
         std::string* value;  

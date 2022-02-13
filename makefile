@@ -7,6 +7,9 @@ SRCS_CPP = \
 		./lib/Scanner/Scanner.cpp \
 		./lib/Parser/Expr.cpp \
 		./lib/Parser/Binary.cpp \
+		./lib/Parser/Grouping.cpp \
+		./lib/Parser/Unary.cpp \
+		./lib/Parser/Literal.cpp \
 		./lib/Lox.cpp \
 		./src/main.cpp \
 

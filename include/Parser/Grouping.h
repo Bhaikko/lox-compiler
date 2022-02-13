@@ -3,7 +3,7 @@
 #include "./../Scanner/Token.h"       
 #include "./Expr.h"                   
                                         
-class Grouping                        
+class Grouping : public Expr                  
 {                                      
     private:                            
         Expr* expression;  

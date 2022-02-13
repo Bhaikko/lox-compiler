@@ -29,7 +29,7 @@ f"#pragma once                          \n\
 #include \"./../Scanner/Token.h\"       \n\
 #include \"./Expr.h\"                   \n\
                                         \n\
-class {baseName}                        \n\
+class {baseName} : public Expr          \n\
 {{                                      \n\
     private:                            \n\
         {attrString}                    \n\
