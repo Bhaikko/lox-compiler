@@ -1,7 +1,8 @@
-#include "./../../include/Parser/Grouping.h"      
+#include "./../../include/Parser/Unary.h"      
                                                         
-Grouping::Grouping (Expr* expression)               
+Unary::Unary(Token* operator,, Expr* right)                
 {                                                      
-    this->expression = expression;
+    this->operator, = operator,;
+	this->right = right;
 	                                        
 };                                                     

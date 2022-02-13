@@ -64,7 +64,7 @@ def writeToCppFile(filePath, baseName, type):
         content = \
 f"#include \"./../../include/Parser/{baseName}.h\"      \n\
                                                         \n\
-{baseName}:{baseName} ({argumentString})                \n\
+{baseName}::{baseName}({argumentString})                \n\
 {{                                                      \n\
     {bodyString}                                        \n\
 }};                                                     \n\

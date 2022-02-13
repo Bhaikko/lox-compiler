@@ -1,7 +1,7 @@
-#include "./../../include/Parser/Grouping.h"      
+#include "./../../include/Parser/Literal.h"      
                                                         
-Grouping::Grouping (Expr* expression)               
+Literal::Literal (std::string* value)               
 {                                                      
-    this->expression = expression;
+    this->value = value;
 	                                        
 };                                                     
