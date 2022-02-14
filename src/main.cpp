@@ -10,41 +10,16 @@
 
 int main(int argc, char** argv)
 {
-    // if (argc > 2) {
-    //     std::cout << "Usage: jlox [script]" << std::endl;
-    //     exit(1);
-    // } else if (argc == 2) {
-    //     // If File path is provided
-    //     Lox::runFile(argv[1]);
-    // } else {
-    //     // Running an Interactive Console - REPL
-    //     Lox::runPrompt();
-    // }
-
-
-    // Testing AstPrinter built using Visitor Pattern
-    Binary* expr = new Binary(
-        new Unary(
-            new Token(
-                TokenType::MINUS, 
-                new std::string("-"),
-                nullptr,
-                1
-            ),
-            new Literal(new std::string("123"))
-        ),
-        new Token(
-            TokenType::STAR, 
-            new std::string("*"),
-            nullptr,
-            1
-        ),
-        new Grouping(new Literal(new std::string("45.67")))
-    );
-
-    AstPrinter* printer = new AstPrinter();
-    std::cout << printer->print(expr) << std::endl; 
-
+    if (argc > 2) {
+        std::cout << "Usage: jlox [script]" << std::endl;
+        exit(1);
+    } else if (argc == 2) {
+        // If File path is provided
+        Lox::runFile(argv[1]);
+    } else {
+        // Running an Interactive Console - REPL
+        Lox::runPrompt();
+    }
 
     return 0;
 }
