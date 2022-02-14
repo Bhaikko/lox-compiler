@@ -1,6 +1,7 @@
 #include "./../../include/Parser/Expr.h"
+// #include <iostream>
 
-std::string Expr::accept(Visitor<std::string>* visitor)
+std::string Expr::accept(Visitor* visitor)
 {
     return "";
 }

@@ -9,7 +9,8 @@
 #include "./Literal.h"
 #include "./Unary.h"
 
-class AstPrinter : public Visitor<std::string>
+// class AstPrinter : public Visitor<std::string>
+class AstPrinter : public Visitor
 {
     public:
         std::string print(Expr* expr);

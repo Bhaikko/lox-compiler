@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     );
 
     AstPrinter* printer = new AstPrinter();
-    // printer->print(expr);
+    std::cout << printer->print(expr) << std::endl; 
 
     return 0;
 }
