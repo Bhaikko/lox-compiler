@@ -1,19 +1,15 @@
 #pragma once
 
-#include "./Binary.h"
-#include "./Grouping.h"
-#include "./Literal.h"
-#include "./Unary.h"
+#include <string>
+// #include "./Binary.h"
+// #include "./Grouping.h"
+// #include "./Literal.h"
+// #include "./Unary.h"
 
-/**
- * @brief Base class that all expression classes will inherit fromW
- * 
- */
-class Expr 
-{
-    public:
-        virtual std::string accept(Visitor<std::string>* visitor);
-};
+class Binary;
+class Grouping;
+class Literal;
+class Unary;
 
 // "Visitor base class"
 template <class T>
@@ -26,4 +22,14 @@ class Visitor
         virtual T visitLiteralExpr(Literal* expr);
         virtual T visitUnaryExpr(Unary* expr);
 
+};
+
+/**
+ * @brief Base class that all expression classes will inherit fromW
+ * 
+ */
+class Expr 
+{
+    public:
+        virtual std::string accept(Visitor<std::string>* visitor);
 };

@@ -35,8 +35,7 @@ std::string AstPrinter::visitGroupingExpr(Grouping* expr)
     std::vector<Expr*> exprs;
     exprs.push_back(expr->expression);
 
-    std::string* name = new std::string("group");
-    return parenthesize(name, exprs);
+    return parenthesize(new std::string("group"), exprs);
 }
 
 std::string AstPrinter::visitLiteralExpr(Literal* expr) 

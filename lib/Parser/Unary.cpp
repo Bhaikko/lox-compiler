@@ -1,8 +1,8 @@
 #include "./../../include/Parser/Unary.h"      
                                                         
-Unary::Unary(Token* operator,, Expr* right)                
+Unary::Unary(Token* operator_, Expr* right)                
 {                                                      
-    this->operator, = operator,;
+    this->operator_ = operator_;
 	this->right = right;
 	                                        
 };                                                     

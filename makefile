@@ -10,6 +10,7 @@ SRCS_CPP = \
 		./lib/Parser/Grouping.cpp \
 		./lib/Parser/Unary.cpp \
 		./lib/Parser/Literal.cpp \
+		./lib/Parser/AstPrinter.cpp \
 		./lib/Lox.cpp \
 		./src/main.cpp \
 
