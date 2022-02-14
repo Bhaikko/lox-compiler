@@ -21,26 +21,26 @@ int main(int argc, char** argv)
     //     Lox::runPrompt();
     // }
 
-    // Binary* expr = new Binary(
-    //     new Unary(
-    //         new Token(
-    //             TokenType::MINUS, 
-    //             new std::string("-"),
-    //             nullptr,
-    //             1
-    //         ),
-    //         new Literal(new std::string("123"))
-    //     ),
-    //     new Token(
-    //         TokenType::STAR, 
-    //         new std::string("*"),
-    //         nullptr,
-    //         1
-    //     ),
-    //     new Grouping(new Literal(new std::string("45.67")))
-    // );
+    Binary* expr = new Binary(
+        new Unary(
+            new Token(
+                TokenType::MINUS, 
+                new std::string("-"),
+                nullptr,
+                1
+            ),
+            new Literal(new std::string("123"))
+        ),
+        new Token(
+            TokenType::STAR, 
+            new std::string("*"),
+            nullptr,
+            1
+        ),
+        new Grouping(new Literal(new std::string("45.67")))
+    );
 
-    // AstPrinter* printer = new AstPrinter();
+    AstPrinter* printer = new AstPrinter();
     // printer->print(expr);
 
     return 0;

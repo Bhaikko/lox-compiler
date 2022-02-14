@@ -10,4 +10,6 @@ class Grouping : public Expr
 		                    
     public:                             
         Grouping(Expr* expression);   
+
+        virtual std::string accept(Visitor<std::string>* visitor) override;
 };                                     

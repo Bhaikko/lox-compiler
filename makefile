@@ -8,8 +8,8 @@ SRCS_CPP = \
 		./lib/Parser/Expr.cpp \
 		./lib/Parser/Binary.cpp \
 		./lib/Parser/Grouping.cpp \
-		./lib/Parser/Unary.cpp \
 		./lib/Parser/Literal.cpp \
+		./lib/Parser/Unary.cpp \
 		./lib/Parser/AstPrinter.cpp \
 		./lib/Lox.cpp \
 		./src/main.cpp \

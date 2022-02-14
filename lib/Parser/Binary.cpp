@@ -6,3 +6,8 @@ Binary::Binary(Expr* left, Token* operator_, Expr* right)
     this->operator_ = operator_;
     this->right = right;
 }
+
+std::string Binary::accept(Visitor<std::string>* visitor)
+{
+    return visitor->visitBinaryExpr(this);
+}

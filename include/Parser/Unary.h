@@ -11,4 +11,6 @@ class Unary : public Expr
 		                    
     public:                             
         Unary(Token* operator_, Expr* right);   
+
+        virtual std::string accept(Visitor<std::string>* visitor) override;
 };                                     

@@ -1,7 +1,11 @@
 #include "./../../include/Parser/Grouping.h"      
                                                         
-Grouping::Grouping (Expr* expression)               
+Grouping::Grouping(Expr* expression)               
 {                                                      
-    this->expression = expression;
-	                                        
+    this->expression = expression;                     
 };                                                     
+
+std::string Grouping::accept(Visitor<std::string>* visitor)
+{
+    return visitor->visitGroupingExpr(this);
+}
