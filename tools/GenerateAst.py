@@ -31,7 +31,7 @@ f"#pragma once                          \n\
                                         \n\
 class {baseName} : public Expr          \n\
 {{                                      \n\
-    private:                            \n\
+    public:                             \n\
         {attrString}                    \n\
     public:                             \n\
         {baseName}({argumentString});   \n\

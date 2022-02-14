@@ -5,7 +5,7 @@
                                         
 class Literal : public Expr                       
 {                                      
-    private:                            
+    public:                            
         std::string* value;  
 		                    
     public:                             

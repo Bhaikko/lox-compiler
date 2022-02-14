@@ -5,7 +5,7 @@
                                         
 class Grouping : public Expr                  
 {                                      
-    private:                            
+    public:                            
         Expr* expression;  
 		                    
     public:                             

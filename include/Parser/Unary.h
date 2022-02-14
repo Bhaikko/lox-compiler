@@ -5,7 +5,7 @@
                                         
 class Unary : public Expr                  
 {                                      
-    private:                            
+    public:                            
         Token* operator_;  
 		Expr* right;  
 		                    

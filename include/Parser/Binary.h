@@ -12,7 +12,7 @@
  */
 class Binary : public Expr
 {   // The base classes will have subclasses nested inside of it
-    private:
+    public:
         Expr* left;
         Token* operator_;    // operator is a keyword in Cpp
         Expr* right;
