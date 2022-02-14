@@ -12,15 +12,15 @@ class Literal;
 class Unary;
 
 // "Visitor base class"
-// template <class T>
+template <class T>
 class Visitor 
 {
     public:
         // Will be redefined in derived classes
-        virtual std::string visitBinaryExpr(Binary* expr);
-        virtual std::string visitGroupingExpr(Grouping* expr);
-        virtual std::string visitLiteralExpr(Literal* expr);
-        virtual std::string visitUnaryExpr(Unary* expr);
+        virtual T visitBinaryExpr(Binary* expr) { return T(); }
+        virtual T visitGroupingExpr(Grouping* expr) { return T(); }
+        virtual T visitLiteralExpr(Literal* expr) { return T(); }
+        virtual T visitUnaryExpr(Unary* expr) { return T(); }
 
 };
 
@@ -31,5 +31,5 @@ class Visitor
 class Expr 
 {
     public:
-        virtual std::string accept(Visitor* visitor);
+        virtual std::string accept(Visitor<std::string>* visitor);
 };

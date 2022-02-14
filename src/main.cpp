@@ -21,6 +21,8 @@ int main(int argc, char** argv)
     //     Lox::runPrompt();
     // }
 
+
+    // Testing AstPrinter built using Visitor Pattern
     Binary* expr = new Binary(
         new Unary(
             new Token(
@@ -42,6 +44,7 @@ int main(int argc, char** argv)
 
     AstPrinter* printer = new AstPrinter();
     std::cout << printer->print(expr) << std::endl; 
+
 
     return 0;
 }

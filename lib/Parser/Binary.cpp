@@ -7,7 +7,7 @@ Binary::Binary(Expr* left, Token* operator_, Expr* right)
     this->right = right;
 }
 
-std::string Binary::accept(Visitor* visitor)
+std::string Binary::accept(Visitor<std::string>* visitor)
 {
     return visitor->visitBinaryExpr(this);
 }
