@@ -16,18 +16,27 @@ class Parser
         Parser(std::vector<Token*>* tokens);
 
     private:
+        // Functions to parse Non Terminals
+        // Binary Operations
         Expr* expression();
         Expr* equality();
         Expr* comparison();
         Expr* term();
         Expr* factor();
+        
+        // Unary Operations
         Expr* unary();
+
+        // Literals Operations
+        Expr* primary();
 
     private:
         bool match(std::vector<TokenType> tokenTypes);
+        bool match(TokenType type);
         Token* previous();
         bool check(TokenType type);
         Token* advance();
         bool isAtEnd();
         Token* peek();
+        void consume(TokenType type, std::string message);
 };
