@@ -2,9 +2,11 @@
 
 #include <vector>
 
+#include "./../Lox.h"
 #include "./../Scanner/Token.h"
 #include "./Expr.h"
 #include "./ExpressionHeaders.h"
+#include "./ParseError.h"
 
 class Parser 
 {
@@ -38,5 +40,14 @@ class Parser
         Token* advance();
         bool isAtEnd();
         Token* peek();
-        void consume(TokenType type, std::string message);
+        Token* consume(TokenType type, std::string message);
+
+        // This method returns a ParseError as it is upto the calling method
+        // to decide whether to throw the error or report and move forward
+        ParseError* error(Token* token, std::string message);
+
+        // Skips current tokens till Next statement or certain keywords occur
+        // This likely also skips cascaded errors
+        void synchronize();
+
 };

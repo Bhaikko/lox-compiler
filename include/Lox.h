@@ -17,7 +17,10 @@ class Lox
         static void report(int line, std::string where, std::string message);
 
     public:
+        // Reports an Error for a given Token
+        static void error(Token* token, std::string message);
         
+        // Reports an Error for a given Character 
         static void error(int line, std::string message);
         static void run(std::string* srcCode);
         static void runFile(char* filepath);

@@ -187,7 +187,44 @@ Token* Parser::peek()
     return tokens->at(current);
 }
 
-void Parser::consume(TokenType type, std::string message)
+Token* Parser::consume(TokenType type, std::string message)
 {
+    // If token matches the passed type, 
+    // Parser consumes otherwise throws error
+    if (check(type)) {
+        return advance();
+    }
 
+    throw error(peek(), message);
+}
+
+ParseError* Parser::error(Token* token, std::string message)
+{
+    Lox::error(token, message);
+    return new ParseError();
+}
+
+void Parser::synchronize()
+{
+    advance();
+
+    while (!isAtEnd()) {
+        if (previous()->type == TokenType::SEMICOLON) {
+            return;
+        }
+
+        switch (peek()->type) {
+            case TokenType::CLASS:
+            case TokenType::FUN:
+            case TokenType::VAR:
+            case TokenType::FOR:
+            case TokenType::IF:
+            case TokenType::WHILE:
+            case TokenType::PRINT:
+            case TokenType::RETURN:
+                return;
+        }
+
+        advance();
+    }
 }

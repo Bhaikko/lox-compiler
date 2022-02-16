@@ -5,6 +5,8 @@ CPPFLAGS = -std=c++11 -Wall -g
 SRCS_CPP = \
 		./lib/Scanner/Token.cpp \
 		./lib/Scanner/Scanner.cpp \
+		./lib/Parser/ParseError.cpp \
+		./lib/Parser/Parser.cpp \
 		./lib/Parser/Expr.cpp \
 		./lib/Parser/Binary.cpp \
 		./lib/Parser/Grouping.cpp \
