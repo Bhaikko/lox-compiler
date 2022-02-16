@@ -35,12 +35,14 @@ void Lox::run(std::string* srcCode)
     Scanner* scanner = new Scanner(srcCode);
     std::vector<Token*>* tokens = scanner->scanTokens();
     
-    // std::cout << tokens->size() << std::endl;
-    for (Token* token : (*tokens)) {
-        // std::cout << token->type << std::endl;
-        std::cout << *token << std::endl;
-        
+    Parser* parser = new Parser(tokens);
+    Expr* expression = parser->parse();
+
+    if (hadError) {
+        return;
     }
+
+    std::cout << (new AstPrinter())->print(expression) << std::endl;
 }
 
 void Lox::runFile(char* filepath) 

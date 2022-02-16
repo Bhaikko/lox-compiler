@@ -10,6 +10,15 @@ Expr* Parser::expression()
     return equality();
 }
 
+Expr* Parser::parse() 
+{
+    try {
+        return expression();
+    } catch (ParseError error) {
+        return nullptr;
+    }
+}
+
 Expr* Parser::equality() 
 {
     Expr* expr = comparison();
@@ -125,6 +134,9 @@ Expr* Parser::primary()
 
         return new Grouping(expr);
     }
+
+    // Token that cannot start an expression
+    throw error(peek(), "Expect expression.");
 }
 
 bool Parser::match(std::vector<TokenType> tokenTypes)
@@ -223,6 +235,8 @@ void Parser::synchronize()
             case TokenType::PRINT:
             case TokenType::RETURN:
                 return;
+            default: 
+                break;
         }
 
         advance();

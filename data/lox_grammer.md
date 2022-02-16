@@ -2,6 +2,7 @@
 
 _The previous grammar was ambigous_
 
+### Expression Grammar
 ```
     expression  ->  equality;
     equality    ->  comparison ( ( "!=" | "==" ) comparison )* ;

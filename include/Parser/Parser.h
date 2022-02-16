@@ -16,6 +16,7 @@ class Parser
 
     public:
         Parser(std::vector<Token*>* tokens);
+        Expr* parse();
 
     private:
         // Functions to parse Non Terminals

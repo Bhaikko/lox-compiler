@@ -7,6 +7,8 @@
 #include <vector>
 
 #include "./Scanner/Scanner.h"
+#include "./Parser/Parser.h"
+#include "./Parser/AstPrinter.h"
 
 class Lox
 {
