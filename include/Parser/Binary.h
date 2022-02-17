@@ -20,7 +20,7 @@ class Binary : public Expr
     public:
         Binary(Expr* left, Token* operator_, Expr* right);
 
-        virtual std::string accept(Visitor<std::string>* visitor) override;
+        virtual std::string* accept(Visitor<std::string*>* visitor) override;
 };
 
 // The process of generating Subclasses such as above is Automated

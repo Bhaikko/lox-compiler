@@ -6,7 +6,7 @@ Unary::Unary(Token* operator_, Expr* right)
 	this->right = right;              
 };                      
 
-std::string Unary::accept(Visitor<std::string>* visitor)
+std::string* Unary::accept(Visitor<std::string*>* visitor)
 {
     return visitor->visitUnaryExpr(this);    
 }

@@ -11,5 +11,5 @@ class Literal : public Expr
     public:                             
         Literal(std::string* value);   
         
-        virtual std::string accept(Visitor<std::string>* visitor) override;
+        virtual std::string* accept(Visitor<std::string*>* visitor) override;
 };                                     

@@ -27,5 +27,5 @@ class Visitor
 class Expr 
 {
     public:
-        virtual std::string accept(Visitor<std::string>* visitor);
+        virtual std::string* accept(Visitor<std::string*>* visitor);
 };
