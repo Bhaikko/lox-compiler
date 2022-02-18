@@ -283,11 +283,7 @@ void Scanner::number()
         source->substr(start, current - start)
     ));
 
-    // Converting String to double
-    /*
-        std::string num = "0.6";
-        double temp = ::atof(num.c_str());
-    */
+    
 }
 
 bool Scanner::isAtEnd()
