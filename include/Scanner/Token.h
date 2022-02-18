@@ -8,6 +8,8 @@ class Token {
     public:
         TokenType type;
         std::string* lexeme;
+
+        // This can be used as void*
         std::string* literal;
         int line;
 
