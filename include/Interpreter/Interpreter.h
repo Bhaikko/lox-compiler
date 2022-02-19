@@ -21,6 +21,7 @@ class Interpreter: public Visitor<std::string*>
     private:
         // Error Handling based on semantics
         void checkNumberOperand(Token* operator_, std::string* operand);
+        void checkNumberOperands(Token* operator_, std::string* left, std::string* right);
 
     private:
         // Conversion methods from string to other datatypes

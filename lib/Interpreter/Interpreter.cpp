@@ -38,24 +38,29 @@ std::string* Interpreter::visitBinaryExpr(Binary* expr)
 
     switch (expr->operator_->type) {
         case TokenType::MINUS:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) - 
                 string_to_double(right)
             ));
 
         case TokenType::SLASH:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) / 
                 string_to_double(right)
             ));
 
         case TokenType::STAR:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) * 
                 string_to_double(right)
             ));
 
         // Handles string concatenation and double addtion
+        // If anyone one of operands is string then,
+        // returns their concatenation
         case TokenType::PLUS:
             if (!isDouble(left) || !isDouble(right)) {
                 return new std::string(*left + *right);
@@ -67,24 +72,28 @@ std::string* Interpreter::visitBinaryExpr(Binary* expr)
             ));
 
         case TokenType::GREATER:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) >
                 string_to_double(right)
             ));
 
         case TokenType::GREATER_EQUAL:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) >=
                 string_to_double(right)
             ));
 
         case TokenType::LESS:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) <
                 string_to_double(right)
             ));
 
         case TokenType::LESS_EQUAL:
+            checkNumberOperands(expr->operator_, left, right);
             return new std::string(std::to_string(
                 string_to_double(left) <=
                 string_to_double(right)
@@ -171,4 +180,14 @@ void Interpreter::checkNumberOperand(Token* operator_, std::string* operand)
     }
 
     throw new RuntimeError(operator_, "Operand must be a number.");
+}
+
+
+void Interpreter::checkNumberOperands(Token* operator_, std::string* left, std::string* right)
+{
+    if (isDouble(left) && isDouble(right)) {
+        return;
+    }
+
+    throw new RuntimeError(operator_, "Operands must be numbers.");
 }
