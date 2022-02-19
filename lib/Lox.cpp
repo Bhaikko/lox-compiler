@@ -52,6 +52,10 @@ void Lox::run(std::string* srcCode)
         return;
     }
 
+    if (Lox::hadRuntimeError) {
+        return;
+    }
+
     interpreter->interpret(expression);
 
     // std::cout << *((new AstPrinter())->print(expression)) << std::endl;
@@ -75,7 +79,7 @@ void Lox::runFile(char* filepath)
             exit(1);
         }
 
-        if (Lox::runtimeError) {
+        if (Lox::hadRuntimeError) {
             exit(1);
         }
     }

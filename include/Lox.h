@@ -9,12 +9,14 @@
 #include "./Scanner/Scanner.h"
 #include "./Parser/Parser.h"
 #include "./Parser/AstPrinter.h"
-#include "./Interpreter/RuntimeError.h"
 #include "./Interpreter/Interpreter.h"
+#include "./Interpreter/RuntimeError.h"
+
+class Interpreter; 
 
 class Lox
 {
-    private:
+    public:
         /**
          * @brief Static because the entire session of REPL or 
          * Execution from source file should have only one instrance
