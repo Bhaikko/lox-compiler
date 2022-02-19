@@ -1,7 +1,10 @@
 #pragma once
 
+#include <iostream>
+
 #include "./../Parser/Expr.h"
 #include "./../Parser/ExpressionHeaders.h"
+#include "./../Lox.h"
 
 #include "./RuntimeError.h"
 
@@ -29,6 +32,14 @@ class Interpreter: public Visitor<std::string*>
         double string_to_double(std::string* literal);
         bool isDouble(std::string* literal);
         bool isEqual(std::string* a, std::string* b);
+
+    private:
+        // Utilities
+        std::string stringify(std::string* object);
+
+    public:
+        // Evaluates the expression and displays in proper format
+        void interpret(Expr* expression);
 
     
 };

@@ -1,6 +1,7 @@
 #include "./../include/Lox.h"
 
 bool Lox::hadError = false;
+bool Lox::hadRuntimeError = false;
 
 void Lox::report(int line, std::string where, std::string message) 
 {
@@ -23,6 +24,14 @@ void Lox::error(Token* token, std::string message)
     } else {
         report(token->line, " at '" + *(token->lexeme) + "'", message);
     }
+}
+
+void Lox::runtimeError(RuntimeError error)
+{
+    std::cerr << error.what() << std::endl;
+    std::cerr << "[line " << error.token->line << " ]" << std::endl;
+
+    hadRuntimeError = true;
 }
 
 void Lox::error(int line, std::string message) 
@@ -60,6 +69,10 @@ void Lox::runFile(char* filepath)
         run(&content);
 
         if (Lox::hadError) {
+            exit(1);
+        }
+
+        if (Lox::runtimeError) {
             exit(1);
         }
     }

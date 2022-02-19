@@ -114,6 +114,33 @@ std::string* Interpreter::visitBinaryExpr(Binary* expr)
     }
 }
 
+void Interpreter::interpret(Expr* expression)
+{
+    try {
+        std::string* value = evaluate(expression);
+
+        std::cout << stringify(value) << std::endl;
+    } catch (RuntimeError error) {
+        // Lox::runtimeError(error);
+    }
+}
+
+std::string Interpreter::stringify(std::string* object)
+{
+    if (object == nullptr) {
+        return "nil";
+    }
+
+    // if (isDouble(object)) {
+    //     if (object->substr(object->size() - 2, 2) == ".0") {
+    //         return object->substr(0, object->size() - 2);
+    //     }
+
+    // }
+    
+    return *object;
+}
+
 std::string* Interpreter::evaluate(Expr* expr)
 {
     return expr->accept(this);

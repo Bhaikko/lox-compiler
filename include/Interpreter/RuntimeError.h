@@ -4,9 +4,14 @@
 
 #include "./../Scanner/Token.h"
 
+/**
+ * @brief Class responsible for throwing runtime errors for interpreter
+ * Inherits from std::runtime_error and stores other Error related attributes
+ * 
+ */
 class RuntimeError: public std::runtime_error
 {
-    private:
+    public:
         Token* token;
 
     public:
