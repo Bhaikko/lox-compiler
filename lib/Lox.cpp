@@ -2,6 +2,7 @@
 
 bool Lox::hadError = false;
 bool Lox::hadRuntimeError = false;
+Interpreter* Lox::interpreter = new Interpreter();
 
 void Lox::report(int line, std::string where, std::string message) 
 {
@@ -51,7 +52,9 @@ void Lox::run(std::string* srcCode)
         return;
     }
 
-    std::cout << *((new AstPrinter())->print(expression)) << std::endl;
+    interpreter->interpret(expression);
+
+    // std::cout << *((new AstPrinter())->print(expression)) << std::endl;
 }
 
 void Lox::runFile(char* filepath) 

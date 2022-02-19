@@ -10,9 +10,19 @@
 #include "./Parser/Parser.h"
 #include "./Parser/AstPrinter.h"
 #include "./Interpreter/RuntimeError.h"
+#include "./Interpreter/Interpreter.h"
 
 class Lox
 {
+    private:
+        /**
+         * @brief Static because the entire session of REPL or 
+         * Execution from source file should have only one instrance
+         * of interpreter
+         * eg: For global variables in REPL
+         */
+        static Interpreter* interpreter;
+
     public:
         static bool hadError;
         static bool hadRuntimeError;
