@@ -17,6 +17,7 @@ std::string* Interpreter::visitUnaryExpr(Unary* expr)
     // This is what that makes a language dynamically typed
     switch (expr->operator_->type) {
         case TokenType::MINUS:
+            checkNumberOperand(expr->operator_, right);
             *right = "-" + *right;
             return right;
 
@@ -161,4 +162,13 @@ bool Interpreter::isEqual(std::string* a, std::string* b)
     // May need to handle string equivalent too
 
     return a->at(0) == b->at(0);
+}
+
+void Interpreter::checkNumberOperand(Token* operator_, std::string* operand)
+{
+    if (isDouble(operand)) {
+        return;
+    }
+
+    throw new RuntimeError(operator_, "Operand must be a number.");
 }

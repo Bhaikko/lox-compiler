@@ -13,6 +13,7 @@ SRCS_CPP = \
 		./lib/Parser/Literal.cpp \
 		./lib/Parser/Unary.cpp \
 		./lib/Parser/AstPrinter.cpp \
+		./lib/Interpreter/RuntimeError.cpp \
 		./lib/Interpreter/Interpreter.cpp \
 		./lib/Lox.cpp \
 		./src/main.cpp \
