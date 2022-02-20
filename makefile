@@ -12,6 +12,7 @@ SRCS_CPP = \
 		./lib/Parser/Grouping.cpp \
 		./lib/Parser/Literal.cpp \
 		./lib/Parser/Unary.cpp \
+		./lib/Parser/Stmt/Stmt.cpp \
 		./lib/Parser/AstPrinter.cpp \
 		./lib/Interpreter/Interpreter.cpp \
 		./lib/Interpreter/RuntimeError.cpp \

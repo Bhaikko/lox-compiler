@@ -6,6 +6,7 @@
 #include "./../Scanner/Token.h"
 #include "./Expr.h"
 #include "./ExpressionHeaders.h"
+#include "./Stmt/Stmt.h"
 #include "./ParseError.h"
 
 class Parser 
@@ -16,8 +17,9 @@ class Parser
 
     public:
         Parser(std::vector<Token*>* tokens);
-        Expr* parse();
+        std::vector<Stmt::Stmt<std::string>*>* parse();
 
+    // Expression handling
     private:
         // Functions to parse Non Terminals
         // Binary Operations
@@ -32,6 +34,11 @@ class Parser
 
         // Literals Operations
         Expr* primary();
+
+    // Statement Handling
+    private:
+        Stmt::Stmt<std::string>* statement();
+
 
     private:
         bool match(std::vector<TokenType> tokenTypes);

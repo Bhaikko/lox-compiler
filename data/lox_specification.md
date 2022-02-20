@@ -1,9 +1,12 @@
 ## This file contains grammer structure for lox language and language related notes
 
-_The previous grammar was ambigous_
-
 ### Expression Grammar
 ```
+    program     ->  statement* EOF ;
+    statement   ->  exprStmt | printStmt ;
+    exprStmt    ->  expression ";" ;
+    printStmt   ->  "print" expression ";" ;
+
     expression  ->  equality;
     equality    ->  comparison ( ( "!=" | "==" ) comparison )* ;
     comparison  ->  term ( ( ">" | ">=" | "<" | "<=" ) term )* ; 

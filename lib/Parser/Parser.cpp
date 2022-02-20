@@ -10,13 +10,15 @@ Expr* Parser::expression()
     return equality();
 }
 
-Expr* Parser::parse() 
+std::vector<Stmt::Stmt<std::string>*>* Parser::parse() 
 {
-    try {
-        return expression();
-    } catch (ParseError error) {
-        return nullptr;
+    std::vector<Stmt::Stmt<std::string>*>* statements = new std::vector<Stmt::Stmt<std::string>*>();
+
+    while (!isAtEnd()) {
+        // statements->push_back(statement());
     }
+
+    return statements;
 }
 
 Expr* Parser::equality() 
