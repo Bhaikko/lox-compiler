@@ -5,6 +5,7 @@
 #include "./../Expr.h"
 
 class Print;
+class Expression;
 
 namespace Stmt {
     template <class T>
@@ -12,6 +13,7 @@ namespace Stmt {
     {
         public:
             virtual T visitPrintStmt(Print* stmt) { return T(); }
+            virtual T visitExpressionStmt(Expression* stmt) { return T(); }
     };
 
     class Stmt

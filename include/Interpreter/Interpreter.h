@@ -4,17 +4,26 @@
 
 #include "./../Parser/Expr.h"
 #include "./../Parser/ExpressionHeaders.h"
+#include "./../Parser/Stmt/Stmt.h"
 #include "./../Lox.h"
 
 #include "./RuntimeError.h"
 
-class Interpreter: public Visitor<std::string*>
+class Interpreter: 
+    public Visitor<std::string*>,
+    public Stmt::Visitor<void*>
 {
+    // Expressions Handling
     public:
         virtual std::string* visitLiteralExpr(Literal* expr) override;
         virtual std::string* visitGroupingExpr(Grouping* expr) override;
         virtual std::string* visitUnaryExpr(Unary* expr) override;
         virtual std::string* visitBinaryExpr(Binary* expr) override;
+
+    // Statements Handling
+    public:
+        virtual void* visitExpressionStmt(Stmt::Expression* stmt);
+        virtual void* visitPrintStmt(Stmt::Print* stmt);
 
     private:
         // Evaluation of Every expression is done in post order

@@ -6,7 +6,7 @@ namespace Stmt
 {
     class Print: public Stmt
     {
-        private:
+        public:
             Expr* expression;
 
         public:

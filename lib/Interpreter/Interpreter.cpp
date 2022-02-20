@@ -114,6 +114,20 @@ std::string* Interpreter::visitBinaryExpr(Binary* expr)
     }
 }
 
+void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
+{
+    evaluate(stmt->expression);
+    return nullptr;
+}
+
+void* Interpreter::visitPrintStmt(Stmt::Print* stmt)
+{
+    std::string* value = evaluate(stmt->expression);
+    std::cout << stringify(value) << std::endl;
+
+    return nullptr;
+}
+
 void Interpreter::interpret(Expr* expression)
 {
     try {
@@ -121,7 +135,7 @@ void Interpreter::interpret(Expr* expression)
 
         std::cout << stringify(value) << std::endl;
     } catch (RuntimeError error) {
-        // Lox::runtimeError(error);
+        Lox::runtimeError(error);
     }
 }
 

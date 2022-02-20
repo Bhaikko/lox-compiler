@@ -6,7 +6,7 @@ namespace Stmt
 {
     class Expression: public Stmt
     {
-        private:
+        public:
             Expr* expression;
 
         public:
