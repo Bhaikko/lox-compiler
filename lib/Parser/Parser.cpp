@@ -10,12 +10,12 @@ Expr* Parser::expression()
     return equality();
 }
 
-std::vector<Stmt::Stmt<std::string>*>* Parser::parse() 
+std::vector<Stmt::Stmt<void*>*>* Parser::parse() 
 {
-    std::vector<Stmt::Stmt<std::string>*>* statements = new std::vector<Stmt::Stmt<std::string>*>();
+    std::vector<Stmt::Stmt<void*>*>* statements = new std::vector<Stmt::Stmt<void*>*>();
 
     while (!isAtEnd()) {
-        // statements->push_back(statement());
+        statements->push_back(statement());
     }
 
     return statements;
@@ -139,6 +139,33 @@ Expr* Parser::primary()
 
     // Token that cannot start an expression
     throw error(peek(), "Expect expression.");
+}
+
+/**
+ * @brief Handles statements types
+ * 
+ * @return Stmt::Stmt<void*>* 
+ */
+Stmt::Stmt<void*>* Parser::statement()
+{
+    if (match(TokenType::PRINT)) {
+        return printStatement();
+    }
+
+    return expressionStatment();
+}
+
+Stmt::Stmt<void*>* Parser::printStatement()
+{
+    Expr* value = expression();
+    consume(TokenType::SEMICOLON, "Expect ';' after value. ");
+
+    // return new Stmt::Stmt
+}
+
+Stmt::Stmt<void*>* Parser::expressionStatment()
+{
+
 }
 
 bool Parser::match(std::vector<TokenType> tokenTypes)

@@ -17,7 +17,7 @@ class Parser
 
     public:
         Parser(std::vector<Token*>* tokens);
-        std::vector<Stmt::Stmt<std::string>*>* parse();
+        std::vector<Stmt::Stmt<void*>*>* parse();
 
     // Expression handling
     private:
@@ -37,9 +37,10 @@ class Parser
 
     // Statement Handling
     private:
-        Stmt::Stmt<std::string>* statement();
-
-
+        Stmt::Stmt<void*>* statement();
+        Stmt::Stmt<void*>* printStatement();
+        Stmt::Stmt<void*>* expressionStatment();
+        
     private:
         bool match(std::vector<TokenType> tokenTypes);
         bool match(TokenType type);
