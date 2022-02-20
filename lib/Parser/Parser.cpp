@@ -10,9 +10,9 @@ Expr* Parser::expression()
     return equality();
 }
 
-std::vector<Stmt::Stmt<void*>*>* Parser::parse() 
+std::vector<Stmt::Stmt*>* Parser::parse() 
 {
-    std::vector<Stmt::Stmt<void*>*>* statements = new std::vector<Stmt::Stmt<void*>*>();
+    std::vector<Stmt::Stmt*>* statements = new std::vector<Stmt::Stmt*>();
 
     while (!isAtEnd()) {
         statements->push_back(statement());
@@ -144,28 +144,32 @@ Expr* Parser::primary()
 /**
  * @brief Handles statements types
  * 
- * @return Stmt::Stmt<void*>* 
+ * @return Stmt::Stmt* 
  */
-Stmt::Stmt<void*>* Parser::statement()
+Stmt::Stmt* Parser::statement()
 {
     if (match(TokenType::PRINT)) {
+        // PRINT consumed before calling this function
         return printStatement();
     }
 
     return expressionStatment();
 }
 
-Stmt::Stmt<void*>* Parser::printStatement()
+Stmt::Stmt* Parser::printStatement()
 {
     Expr* value = expression();
     consume(TokenType::SEMICOLON, "Expect ';' after value. ");
 
-    // return new Stmt::Stmt
+    return new Stmt::Print(value);
 }
 
-Stmt::Stmt<void*>* Parser::expressionStatment()
+Stmt::Stmt* Parser::expressionStatment()
 {
+    Expr* expr = expression();
+    consume(TokenType::SEMICOLON, "Expectt ';' after expression. ");
 
+    return new Stmt::Expression(expr);
 }
 
 bool Parser::match(std::vector<TokenType> tokenTypes)

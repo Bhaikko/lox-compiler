@@ -7,6 +7,8 @@
 #include "./Expr.h"
 #include "./ExpressionHeaders.h"
 #include "./Stmt/Stmt.h"
+#include "./Stmt/Print.h"
+#include "./Stmt/Expression.h"
 #include "./ParseError.h"
 
 class Parser 
@@ -17,7 +19,7 @@ class Parser
 
     public:
         Parser(std::vector<Token*>* tokens);
-        std::vector<Stmt::Stmt<void*>*>* parse();
+        std::vector<Stmt::Stmt*>* parse();
 
     // Expression handling
     private:
@@ -37,9 +39,9 @@ class Parser
 
     // Statement Handling
     private:
-        Stmt::Stmt<void*>* statement();
-        Stmt::Stmt<void*>* printStatement();
-        Stmt::Stmt<void*>* expressionStatment();
+        Stmt::Stmt* statement();
+        Stmt::Stmt* printStatement();
+        Stmt::Stmt* expressionStatment();
         
     private:
         bool match(std::vector<TokenType> tokenTypes);

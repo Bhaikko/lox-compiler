@@ -4,13 +4,13 @@
 
 namespace Stmt
 {
-    class Print: public Stmt
+    class Expression: public Stmt
     {
         private:
             Expr* expression;
 
         public:
-            Print(Expr* expression);
+            Expression(Expr* expression);
 
             virtual void* accept(Visitor<void*>* visitor);
     };

@@ -4,17 +4,19 @@
 
 #include "./../Expr.h"
 
+class Print;
+
 namespace Stmt {
     template <class T>
     class Visitor
     {
         public:
-            
+            virtual T visitPrintStmt(Print* stmt) { return T(); }
     };
 
-    template <class T=std::string>
     class Stmt
     {
-
+        public:
+            virtual void* accept(Visitor<void*>* visitor);
     };
 }
