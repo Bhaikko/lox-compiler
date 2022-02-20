@@ -167,7 +167,7 @@ Stmt::Stmt* Parser::printStatement()
 Stmt::Stmt* Parser::expressionStatment()
 {
     Expr* expr = expression();
-    consume(TokenType::SEMICOLON, "Expectt ';' after expression. ");
+    consume(TokenType::SEMICOLON, "Expect ';' after expression. ");
 
     return new Stmt::Expression(expr);
 }

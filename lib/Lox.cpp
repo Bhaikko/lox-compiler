@@ -46,7 +46,7 @@ void Lox::run(std::string* srcCode)
     std::vector<Token*>* tokens = scanner->scanTokens();
     
     Parser* parser = new Parser(tokens);
-    // Expr* expression = parser->parse();
+    std::vector<Stmt::Stmt*>* statements = parser->parse();
 
     if (hadError) {
         return;
@@ -56,7 +56,7 @@ void Lox::run(std::string* srcCode)
         return;
     }
 
-    // interpreter->interpret(expression);
+    interpreter->interpret(statements);
 
     // std::cout << *((new AstPrinter())->print(expression)) << std::endl;
 }

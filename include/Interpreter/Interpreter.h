@@ -5,6 +5,7 @@
 #include "./../Parser/Expr.h"
 #include "./../Parser/ExpressionHeaders.h"
 #include "./../Parser/Stmt/Stmt.h"
+#include "./../Parser/Stmt/StmtHeaders.h"
 #include "./../Lox.h"
 
 #include "./RuntimeError.h"
@@ -22,13 +23,14 @@ class Interpreter:
 
     // Statements Handling
     public:
-        virtual void* visitExpressionStmt(Stmt::Expression* stmt);
-        virtual void* visitPrintStmt(Stmt::Print* stmt);
+        virtual void* visitPrintStmt(Stmt::Print* stmt) override;
+        virtual void* visitExpressionStmt(Stmt::Expression* stmt) override;
 
     private:
         // Evaluation of Every expression is done in post order
         std::string* evaluate(Expr* expr);
         std::string* isTruthy(std::string* object);
+        void execute(Stmt::Stmt* stmt);
 
     private:
         // Error Handling based on semantics
@@ -48,7 +50,7 @@ class Interpreter:
 
     public:
         // Evaluates the expression and displays in proper format
-        void interpret(Expr* expression);
+        void interpret(std::vector<Stmt::Stmt*>* statements);
 
     
 };

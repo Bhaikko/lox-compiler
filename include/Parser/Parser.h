@@ -7,8 +7,7 @@
 #include "./Expr.h"
 #include "./ExpressionHeaders.h"
 #include "./Stmt/Stmt.h"
-#include "./Stmt/Print.h"
-#include "./Stmt/Expression.h"
+#include "./Stmt/StmtHeaders.h"
 #include "./ParseError.h"
 
 class Parser 
