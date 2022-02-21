@@ -7,10 +7,10 @@ namespace Stmt
     class Expression: public Stmt
     {
         public:
-            Expr* expression;
+            Expr::Expr* expression;
 
         public:
-            Expression(Expr* expression);
+            Expression(Expr::Expr* expression);
 
             virtual void* accept(Visitor<void*>* visitor) override;
     };

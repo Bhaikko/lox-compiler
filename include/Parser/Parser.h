@@ -22,17 +22,17 @@ class Parser
     private:
         // Functions to parse Non Terminals
         // Binary Operations
-        Expr* expression();
-        Expr* equality();
-        Expr* comparison();
-        Expr* term();
-        Expr* factor();
+        Expr::Expr* expression();
+        Expr::Expr* equality();
+        Expr::Expr* comparison();
+        Expr::Expr* term();
+        Expr::Expr* factor();
         
         // Unary Operations
-        Expr* unary();
+        Expr::Expr* unary();
 
         // Literals Operations
-        Expr* primary();
+        Expr::Expr* primary();
 
     // Statement Handling
     private:

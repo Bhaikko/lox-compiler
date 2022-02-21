@@ -9,15 +9,15 @@
 #include "./RuntimeError.h"
 
 class Interpreter: 
-    public Visitor<std::string*>,
+    public Expr::Visitor<std::string*>,
     public Stmt::Visitor<void*>
 {
     // Expressions Handling
     public:
-        virtual std::string* visitLiteralExpr(Literal* expr) override;
-        virtual std::string* visitGroupingExpr(Grouping* expr) override;
-        virtual std::string* visitUnaryExpr(Unary* expr) override;
-        virtual std::string* visitBinaryExpr(Binary* expr) override;
+        virtual std::string* visitLiteralExpr(Expr::Literal* expr) override;
+        virtual std::string* visitGroupingExpr(Expr::Grouping* expr) override;
+        virtual std::string* visitUnaryExpr(Expr::Unary* expr) override;
+        virtual std::string* visitBinaryExpr(Expr::Binary* expr) override;
 
     // Statements Handling
     public:
@@ -26,7 +26,7 @@ class Interpreter:
 
     private:
         // Evaluation of Every expression is done in post order
-        std::string* evaluate(Expr* expr);
+        std::string* evaluate(Expr::Expr* expr);
         std::string* isTruthy(std::string* object);
         void execute(Stmt::Stmt* stmt);
 

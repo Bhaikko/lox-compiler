@@ -1,6 +1,6 @@
 #include "./../../../include/Parser/Stmt/Expression.h"
 
-Stmt::Expression::Expression(Expr* expression)
+Stmt::Expression::Expression(Expr::Expr* expression)
 {
     this->expression = expression;
 }

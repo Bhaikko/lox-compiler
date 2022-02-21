@@ -5,7 +5,7 @@ Parser::Parser(std::vector<Token*>* tokens)
     this->tokens = tokens;
 }
 
-Expr* Parser::expression()
+Expr::Expr* Parser::expression()
 {
     return equality();
 }
@@ -21,9 +21,9 @@ std::vector<Stmt::Stmt*>* Parser::parse()
     return statements;
 }
 
-Expr* Parser::equality() 
+Expr::Expr* Parser::equality() 
 {
-    Expr* expr = comparison();
+    Expr::Expr* expr = comparison();
 
     std::vector<TokenType> tokenTypes;
     tokenTypes.push_back(TokenType::BANG_EQUAL);
@@ -31,20 +31,20 @@ Expr* Parser::equality()
 
     while (match(tokenTypes)) {
         Token* operator_ = previous(); // Since match() consumes current token
-        Expr* right = comparison();
+        Expr::Expr* right = comparison();
 
         // Since comparison will always happen between two operators
         // Making a left associative binary expression
         // By having the prev expr on the left side of the binary expr
-        expr = new Binary(expr, operator_, right);
+        expr = new Expr::Binary(expr, operator_, right);
     }
 
     return expr;
 }
 
-Expr* Parser::comparison() 
+Expr::Expr* Parser::comparison() 
 {
-    Expr* expr = term();
+    Expr::Expr* expr = term();
 
     std::vector<TokenType> tokenTypes;
     tokenTypes.push_back(TokenType::GREATER);
@@ -54,17 +54,17 @@ Expr* Parser::comparison()
 
     while (match(tokenTypes)) {
         Token* operator_ = previous();
-        Expr* right = term();
+        Expr::Expr* right = term();
 
-        expr = new Binary(expr, operator_, right);
+        expr = new Expr::Binary(expr, operator_, right);
     }
 
     return expr;
 }
 
-Expr* Parser::term() 
+Expr::Expr* Parser::term() 
 {
-    Expr* expr = factor();
+    Expr::Expr* expr = factor();
     
     std::vector<TokenType> tokenTypes;
     tokenTypes.push_back(TokenType::PLUS);
@@ -72,18 +72,18 @@ Expr* Parser::term()
 
     while (match(tokenTypes)) {
         Token* operator_ = previous();
-        Expr* right = factor();
+        Expr::Expr* right = factor();
 
-        expr = new Binary(expr, operator_, right);
+        expr = new Expr::Binary(expr, operator_, right);
     }
 
     return expr;
     
 }
 
-Expr* Parser::factor() 
+Expr::Expr* Parser::factor() 
 {
-    Expr* expr = unary();
+    Expr::Expr* expr = unary();
 
     std::vector<TokenType> tokenTypes;
     tokenTypes.push_back(TokenType::SLASH);
@@ -91,16 +91,16 @@ Expr* Parser::factor()
 
     while (match(tokenTypes)) {
         Token* operator_ = previous();
-        Expr* right = unary();
+        Expr::Expr* right = unary();
 
-        expr = new Binary(expr, operator_, right);
+        expr = new Expr::Binary(expr, operator_, right);
     }
 
     return expr;
 
 }
 
-Expr* Parser::unary() 
+Expr::Expr* Parser::unary() 
 {
     std::vector<TokenType> tokenTypes;
     tokenTypes.push_back(TokenType::BANG);
@@ -108,33 +108,33 @@ Expr* Parser::unary()
 
     if (match(tokenTypes)) {
         Token* operator_ = previous();
-        Expr* right = unary();
+        Expr::Expr* right = unary();
 
-        return new Unary(operator_, right);
+        return new Expr::Unary(operator_, right);
     }
 
     return primary();
 }
 
-Expr* Parser::primary()
+Expr::Expr* Parser::primary()
 {
-    if (match(TokenType::FALSE)) { return new Literal(new std::string("false")); }
-    if (match(TokenType::TRUE)) { return new Literal(new std::string("true")); }
-    if (match(TokenType::NIL)) { return new Literal(new std::string("nil")); }
+    if (match(TokenType::FALSE)) { return new Expr::Literal(new std::string("false")); }
+    if (match(TokenType::TRUE)) { return new Expr::Literal(new std::string("true")); }
+    if (match(TokenType::NIL)) { return new Expr::Literal(new std::string("nil")); }
 
     std::vector<TokenType> tokenTypes;
     tokenTypes.push_back(TokenType::NUMBER);
     tokenTypes.push_back(TokenType::STRING);
 
     if (match(tokenTypes)) {
-        return new Literal(previous()->literal);
+        return new Expr::Literal(previous()->literal);
     }
 
     if (match(TokenType::LEFT_PAREN)) {
-        Expr* expr = expression();
+        Expr::Expr* expr = expression();
         consume(TokenType::RIGHT_PAREN, "Expect ')' after expression.");
 
-        return new Grouping(expr);
+        return new Expr::Grouping(expr);
     }
 
     // Token that cannot start an expression
@@ -158,7 +158,7 @@ Stmt::Stmt* Parser::statement()
 
 Stmt::Stmt* Parser::printStatement()
 {
-    Expr* value = expression();
+    Expr::Expr* value = expression();
     consume(TokenType::SEMICOLON, "Expect ';' after value. ");
 
     return new Stmt::Print(value);
@@ -166,7 +166,7 @@ Stmt::Stmt* Parser::printStatement()
 
 Stmt::Stmt* Parser::expressionStatment()
 {
-    Expr* expr = expression();
+    Expr::Expr* expr = expression();
     consume(TokenType::SEMICOLON, "Expect ';' after expression. ");
 
     return new Stmt::Expression(expr);

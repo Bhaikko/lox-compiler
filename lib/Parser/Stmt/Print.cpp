@@ -1,6 +1,6 @@
 #include "./../../../include/Parser/Stmt/Print.h"
 
-Stmt::Print::Print(Expr* expression)
+Stmt::Print::Print(Expr::Expr* expression)
 {
     this->expression = expression;
 }

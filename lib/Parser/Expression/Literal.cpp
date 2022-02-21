@@ -1,11 +1,11 @@
 #include "./../../../include/Parser/Expression/Literal.h"      
                                                         
-Literal::Literal(std::string* value)               
+Expr::Literal::Literal(std::string* value)               
 {                                                      
     this->value = value;                                  
 };                                                     
 
-std::string* Literal::accept(Visitor<std::string*>* visitor)
+std::string* Expr::Literal::accept(Visitor<std::string*>* visitor)
 {
     return visitor->visitLiteralExpr(this);
 }

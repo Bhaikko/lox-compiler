@@ -1,16 +1,16 @@
 #include "./../../include/Interpreter/Interpreter.h"
 
-std::string* Interpreter::visitLiteralExpr(Literal* expr)
+std::string* Interpreter::visitLiteralExpr(Expr::Literal* expr)
 {
     return expr->value;
 }
 
-std::string* Interpreter::visitGroupingExpr(Grouping* expr)
+std::string* Interpreter::visitGroupingExpr(Expr::Grouping* expr)
 {
     return evaluate(expr->expression);
 }
 
-std::string* Interpreter::visitUnaryExpr(Unary* expr)
+std::string* Interpreter::visitUnaryExpr(Expr::Unary* expr)
 {
     std::string* right = evaluate(expr->right);
 
@@ -31,7 +31,7 @@ std::string* Interpreter::visitUnaryExpr(Unary* expr)
     }
 }
 
-std::string* Interpreter::visitBinaryExpr(Binary* expr)
+std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
 {
     std::string* left = evaluate(expr->left);
     std::string* right = evaluate(expr->right);
@@ -160,7 +160,7 @@ void Interpreter::execute(Stmt::Stmt* stmt)
     stmt->accept(this);
 }
 
-std::string* Interpreter::evaluate(Expr* expr)
+std::string* Interpreter::evaluate(Expr::Expr* expr)
 {
     return expr->accept(this);
 }
