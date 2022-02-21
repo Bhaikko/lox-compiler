@@ -7,5 +7,5 @@ Stmt::Expression::Expression(Expr* expression)
 
 void* Stmt::Expression::accept(Visitor<void*>* visitor)
 {
-    return nullptr;
+    return visitor->visitExpressionStmt(this);
 }

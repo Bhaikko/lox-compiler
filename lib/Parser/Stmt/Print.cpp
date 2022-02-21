@@ -7,5 +7,5 @@ Stmt::Print::Print(Expr* expression)
 
 void* Stmt::Print::accept(Visitor<void*>* visitor)
 {
-    return nullptr;
+    return visitor->visitPrintStmt(this);
 }

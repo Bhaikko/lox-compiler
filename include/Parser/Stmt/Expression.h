@@ -12,6 +12,6 @@ namespace Stmt
         public:
             Expression(Expr* expression);
 
-            virtual void* accept(Visitor<void*>* visitor);
+            virtual void* accept(Visitor<void*>* visitor) override;
     };
 } 
