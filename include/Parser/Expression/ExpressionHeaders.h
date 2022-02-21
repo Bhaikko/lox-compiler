@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "./Expr.h"
 #include "./Binary.h"
 #include "./Literal.h"
 #include "./Grouping.h"

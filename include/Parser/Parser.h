@@ -4,9 +4,7 @@
 
 #include "./../Lox.h"
 #include "./../Scanner/Token.h"
-#include "./Expr.h"
-#include "./ExpressionHeaders.h"
-#include "./Stmt/Stmt.h"
+#include "./Expression/ExpressionHeaders.h"
 #include "./Stmt/StmtHeaders.h"
 #include "./ParseError.h"
 

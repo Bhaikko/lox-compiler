@@ -2,9 +2,7 @@
 
 #include <iostream>
 
-#include "./../Parser/Expr.h"
-#include "./../Parser/ExpressionHeaders.h"
-#include "./../Parser/Stmt/Stmt.h"
+#include "./../Parser/Expression/ExpressionHeaders.h"
 #include "./../Parser/Stmt/StmtHeaders.h"
 #include "./../Lox.h"
 

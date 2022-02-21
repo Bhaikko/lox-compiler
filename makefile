@@ -2,25 +2,29 @@ CXX = g++
 RM = rm -f
 CPPFLAGS = -std=c++11 -Wall -g
 
+SCANNAR_FILES = ./lib/Scanner/Token.cpp \
+				./lib/Scanner/Scanner.cpp \
+
+PARSER_FILES = ./lib/Parser/ParseError.cpp \
+				./lib/Parser/Parser.cpp \
+				./lib/Parser/Expression/Expr.cpp \
+				./lib/Parser/Expression/Binary.cpp \
+				./lib/Parser/Expression/Grouping.cpp \
+				./lib/Parser/Expression/Literal.cpp \
+				./lib/Parser/Expression/Unary.cpp \
+				./lib/Parser/Stmt/Stmt.cpp \
+				./lib/Parser/Stmt/Expression.cpp \
+				./lib/Parser/Stmt/Print.cpp \
+
+TOOLS_FILES = ./lib/Parser/AstPrinter.cpp \
+				./lib/Interpreter/Interpreter.cpp \
+
+INTERPRETER_FILES = ./lib/Interpreter/RuntimeError.cpp \
+					./lib/Lox.cpp \
+
 SRCS_CPP = \
-		./lib/Scanner/Token.cpp \
-		./lib/Scanner/Scanner.cpp \
-		./lib/Parser/ParseError.cpp \
-		./lib/Parser/Parser.cpp \
-		./lib/Parser/Expr.cpp \
-		./lib/Parser/Binary.cpp \
-		./lib/Parser/Grouping.cpp \
-		./lib/Parser/Literal.cpp \
-		./lib/Parser/Unary.cpp \
-		./lib/Parser/Stmt/Stmt.cpp \
-		./lib/Parser/Stmt/Expression.cpp \
-		./lib/Parser/Stmt/Print.cpp \
-		./lib/Parser/AstPrinter.cpp \
-		./lib/Interpreter/Interpreter.cpp \
-		./lib/Interpreter/RuntimeError.cpp \
-		./lib/Lox.cpp \
-		./src/main.cpp \
+				./src/main.cpp \
 
 run:
-	$(CXX) $(SRCS_CPP) -o application $(CPPFLAGS) 
+	$(CXX) $(SCANNAR_FILES) $(PARSER_FILES) $(INTERPRETER_FILES) $(TOOLS_FILES) $(SRCS_CPP) -o application $(CPPFLAGS) 
 

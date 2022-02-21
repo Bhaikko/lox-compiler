@@ -3,11 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "./Expr.h"
-#include "./Binary.h"
-#include "./Grouping.h"
-#include "./Literal.h"
-#include "./Unary.h"
+#include "./Expression/ExpressionHeaders.h"
 
 // class AstPrinter : public Visitor
 class AstPrinter : public Visitor<std::string*>
