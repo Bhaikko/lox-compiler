@@ -7,5 +7,5 @@ Expr::Variable::Variable(Token* name)
 
 std::string* Expr::Variable::accept(Visitor<std::string*>* visitor)
 {
-    // return visitor->visitVariableExpr(this);
+    return visitor->visitVariableExpr(this);
 }

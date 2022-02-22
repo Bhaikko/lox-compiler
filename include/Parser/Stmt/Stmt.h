@@ -8,6 +8,7 @@
 namespace Stmt {
     class Print;
     class Expression;
+    class Var;
     
     template <class T>
     class Visitor
@@ -15,6 +16,7 @@ namespace Stmt {
         public:
             virtual T visitPrintStmt(Stmt::Print* stmt) { return T(); }
             virtual T visitExpressionStmt(Stmt::Expression* stmt) { return T(); }
+            virtual T visitVarStmt(Stmt::Var* stmt) { return T(); }
     };
 
     class Stmt

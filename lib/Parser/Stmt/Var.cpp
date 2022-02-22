@@ -8,5 +8,5 @@ Stmt::Var::Var(Token* token, Expr::Expr* initializer)
 
 void* Stmt::Var::accept(Visitor<void*>* visitor)
 {
-    
+    return visitor->visitVarStmt(this);
 }

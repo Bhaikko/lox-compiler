@@ -15,7 +15,7 @@ std::vector<Stmt::Stmt*>* Parser::parse()
     std::vector<Stmt::Stmt*>* statements = new std::vector<Stmt::Stmt*>();
 
     while (!isAtEnd()) {
-        statements->push_back(statement());
+        statements->push_back(declaration());
     }
 
     return statements;
@@ -130,6 +130,10 @@ Expr::Expr* Parser::primary()
         return new Expr::Literal(previous()->literal);
     }
 
+    if (match(TokenType::IDENTIFIER)) {
+        return new Expr::Variable(previous());
+    }
+
     if (match(TokenType::LEFT_PAREN)) {
         Expr::Expr* expr = expression();
         consume(TokenType::RIGHT_PAREN, "Expect ')' after expression.");
@@ -170,6 +174,37 @@ Stmt::Stmt* Parser::expressionStatment()
     consume(TokenType::SEMICOLON, "Expect ';' after expression. ");
 
     return new Stmt::Expression(expr);
+}
+
+Stmt::Stmt* Parser::declaration()
+{
+    try {
+        if (match(TokenType::VAR)) {
+            return varDeclaration();
+        }
+
+        return statement();
+    } catch (ParseError error) {
+        // Parser goes into Panic mode and skips token
+        // Till valid token is found
+        synchronize();
+
+        return nullptr;
+    }
+}
+
+Stmt::Stmt* Parser::varDeclaration()
+{
+    Token* name = consume(TokenType::IDENTIFIER, "Expect variable name.");
+
+    Expr::Expr* initializer = nullptr;
+    if (match(TokenType::EQUAL)) {
+        initializer = expression();
+    }
+
+    consume(TokenType::SEMICOLON, "Expect ';' after variable declaration");
+
+    return new Stmt::Var(name, initializer);
 }
 
 bool Parser::match(std::vector<TokenType> tokenTypes)

@@ -7,6 +7,7 @@ namespace Expr {
     class Grouping;
     class Literal;
     class Unary;
+    class Variable;
 
     // "Visitor base class"
     template <class T>
@@ -18,6 +19,7 @@ namespace Expr {
             virtual T visitGroupingExpr(Grouping* expr) { return T(); }
             virtual T visitLiteralExpr(Literal* expr) { return T(); }
             virtual T visitUnaryExpr(Unary* expr) { return T(); }
+            virtual T visitVariableExpr(Variable* expr) { return T(); }
 
     };
 

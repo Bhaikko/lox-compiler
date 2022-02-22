@@ -36,10 +36,12 @@ class Parser
 
     // Statement Handling
     private:
+        Stmt::Stmt* declaration();
         Stmt::Stmt* statement();
         Stmt::Stmt* printStatement();
         Stmt::Stmt* expressionStatment();
-        
+        Stmt::Stmt* varDeclaration();
+
     private:
         bool match(std::vector<TokenType> tokenTypes);
         bool match(TokenType type);

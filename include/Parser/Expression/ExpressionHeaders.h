@@ -7,3 +7,4 @@
 #include "./Literal.h"
 #include "./Grouping.h"
 #include "./Unary.h"
+#include "./Variable.h"
