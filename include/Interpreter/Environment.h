@@ -10,7 +10,7 @@
 class Environment
 {
     private:
-        std::unordered_map<std::string*, std::string*>* values;
+        std::unordered_map<std::string, std::string*>* values;
 
     public:
         Environment();
