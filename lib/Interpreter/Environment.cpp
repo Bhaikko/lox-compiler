@@ -13,6 +13,12 @@ void Environment::define(std::string* name, std::string* value)
 
 std::string* Environment::get(Token* name)
 {
+    std::cout << name->lexeme << std::endl;
+
+    for (auto a: *values) {
+        std::cout << a.first << " " << a.second << std::endl;
+    }
+
     if (values->find(name->lexeme) != values->end()) {
         return values->at(name->lexeme);
     }

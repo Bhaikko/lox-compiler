@@ -1,5 +1,10 @@
 #include "./../../include/Interpreter/Interpreter.h"
 
+Interpreter::Interpreter()
+{
+    this->environment = new Environment();
+}
+
 std::string* Interpreter::visitLiteralExpr(Expr::Literal* expr)
 {
     return expr->value;
@@ -114,6 +119,11 @@ std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
     }
 }
 
+std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
+{
+    return environment->get(expr->name);
+}
+
 void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
 {
     std::string* value = evaluate(stmt->expression);
@@ -126,6 +136,18 @@ void* Interpreter::visitPrintStmt(Stmt::Print* stmt)
     std::string* value = evaluate(stmt->expression);
     std::cout << stringify(value) << std::endl;
 
+    return nullptr;
+}
+
+void* Interpreter::visitVarStmt(Stmt::Var* stmt)
+{
+    std::string* value = nullptr;
+
+    if (stmt->initializer != nullptr) {
+        value = evaluate(stmt->initializer);
+    }
+
+    environment->define(stmt->name->lexeme, value);
     return nullptr;
 }
 

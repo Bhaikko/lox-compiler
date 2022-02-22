@@ -6,23 +6,32 @@
 #include "./../Parser/Stmt/StmtHeaders.h"
 #include "./../Lox.h"
 
+#include "./Environment.h"
 #include "./RuntimeError.h"
 
 class Interpreter: 
     public Expr::Visitor<std::string*>,
     public Stmt::Visitor<void*>
 {
+    private:
+        Environment* environment;
+
+    public:
+        Interpreter();
+
     // Expressions Handling
     public:
         virtual std::string* visitLiteralExpr(Expr::Literal* expr) override;
         virtual std::string* visitGroupingExpr(Expr::Grouping* expr) override;
         virtual std::string* visitUnaryExpr(Expr::Unary* expr) override;
         virtual std::string* visitBinaryExpr(Expr::Binary* expr) override;
+        virtual std::string* visitVariableExpr(Expr::Variable* expr) override;
 
     // Statements Handling
     public:
         virtual void* visitPrintStmt(Stmt::Print* stmt) override;
         virtual void* visitExpressionStmt(Stmt::Expression* stmt) override;
+        virtual void* visitVarStmt(Stmt::Var* stmt) override;
 
     private:
         // Evaluation of Every expression is done in post order
