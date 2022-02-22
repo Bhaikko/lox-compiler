@@ -17,7 +17,6 @@ std::string* Environment::get(Token* name)
         return values->at(*(name->lexeme));
     }
 
-    // throw new RuntimeError(name, "Undefined variable '" + *(name->lexeme) + "'.");
-    throw new RuntimeError(name, "Undefined variable");
+    throw new RuntimeError(name, "Undefined variable '" + *(name->lexeme) + "'.");
 }
 

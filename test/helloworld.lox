@@ -1,4 +1,5 @@
 print "Hello World";
 
-// var a = 2;
-print a;
+var a = 2;
+var b = 2;
+print a / b;

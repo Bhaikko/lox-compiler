@@ -6,8 +6,8 @@
 #include "./../Parser/Stmt/StmtHeaders.h"
 #include "./../Lox.h"
 
-#include "./Environment.h"
 #include "./RuntimeError.h"
+#include "./Environment.h"
 
 class Interpreter: 
     public Expr::Visitor<std::string*>,
