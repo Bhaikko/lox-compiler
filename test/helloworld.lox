@@ -1,4 +1,3 @@
-print "Hello world";
-print true;
-print 2 + 3 * 5 - 1 + 9 / 3;
-print "onee";
+print "Hello My Ritika";
+
+print (2 + 3 / 4)
