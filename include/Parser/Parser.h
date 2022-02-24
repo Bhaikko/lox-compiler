@@ -42,6 +42,7 @@ class Parser
         Stmt::Stmt* printStatement();
         Stmt::Stmt* expressionStatment();
         Stmt::Stmt* varDeclaration();
+        std::vector<Stmt::Stmt*>* block();
 
     private:
         bool match(std::vector<TokenType> tokenTypes);

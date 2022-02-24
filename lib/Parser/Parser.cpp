@@ -189,6 +189,10 @@ Stmt::Stmt* Parser::statement()
         return printStatement();
     }
 
+    if (match(TokenType::LEFT_BRACE)) {
+        return new Stmt::Block(block());
+    }
+
     return expressionStatment();
 }
 
@@ -207,6 +211,19 @@ Stmt::Stmt* Parser::expressionStatment()
 
     return new Stmt::Expression(expr);
 }
+
+std::vector<Stmt::Stmt*>* Parser::block()
+{
+    std::vector<Stmt::Stmt*>* statements = new std::vector<Stmt::Stmt*>();
+
+    while (!check(TokenType::RIGHT_BRACE) && !isAtEnd()) {
+        statements->push_back(declaration());
+    }
+
+    consume(TokenType::RIGHT_BRACE, "Expect '}' after block.");
+    return statements;
+}
+
 
 Stmt::Stmt* Parser::declaration()
 {
