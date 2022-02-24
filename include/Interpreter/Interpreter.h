@@ -19,6 +19,7 @@ class Interpreter:
     public:
         Interpreter();
 
+    // Semantics handling for Expression and Statements
     // Expressions Handling
     public:
         virtual std::string* visitLiteralExpr(Expr::Literal* expr) override;
@@ -33,12 +34,14 @@ class Interpreter:
         virtual void* visitPrintStmt(Stmt::Print* stmt) override;
         virtual void* visitExpressionStmt(Stmt::Expression* stmt) override;
         virtual void* visitVarStmt(Stmt::Var* stmt) override;
+        virtual void* visitBlockStmt(Stmt::Block* stmt) override;
 
     private:
         // Evaluation of Every expression is done in post order
         std::string* evaluate(Expr::Expr* expr);
         std::string* isTruthy(std::string* object);
         void execute(Stmt::Stmt* stmt);
+        void executeBlock(std::vector<Stmt::Stmt*>* statements, Environment* environment);
 
     private:
         // Error Handling based on semantics

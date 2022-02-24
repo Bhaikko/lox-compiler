@@ -159,6 +159,11 @@ void* Interpreter::visitVarStmt(Stmt::Var* stmt)
     return nullptr;
 }
 
+void* Interpreter::visitBlockStmt(Stmt::Block* stmt)
+{
+
+}
+
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
 {
     try {
@@ -188,6 +193,23 @@ std::string Interpreter::stringify(std::string* object)
 void Interpreter::execute(Stmt::Stmt* stmt)
 {
     stmt->accept(this);
+}
+
+void Interpreter::executeBlock(std::vector<Stmt::Stmt*>* statments, Environment* environment)
+{
+    Environment* previous = this->environment;
+
+    try {
+        this->environment = environment;
+
+        for (Stmt::Stmt* statement: *statments) {
+            execute(statement);
+        }
+    } catch (RuntimeError error) {
+        Lox::runtimeError(error);
+    } 
+
+    this->environment = previous;
 }
 
 std::string* Interpreter::evaluate(Expr::Expr* expr)
