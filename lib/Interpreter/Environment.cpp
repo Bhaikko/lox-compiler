@@ -19,3 +19,14 @@ std::string* Environment::get(Token* name)
 
     throw new RuntimeError(name, "Undefined variable '" + *(name->lexeme) + "'.");
 }
+
+void Environment::assign(Token* name, std::string* value)
+{
+    if (values->find(*(name->lexeme)) != values->end()) {
+        (*values)[*(name->lexeme)] = value;
+
+        return;
+    }
+
+    throw new RuntimeError(name, "Undefined variable '" + *name->lexeme + "'.");
+}

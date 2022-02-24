@@ -1,6 +1,6 @@
 #include "./../../../include/Parser/Expression/Assign.h"
 
-Expr::Assign::Assign(Token* name, Expr::Expr* value)
+Expr::Assign::Assign(Token* name, Expr* value)
 {
     this->name = name;
     this->value = value;

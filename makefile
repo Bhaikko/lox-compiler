@@ -8,6 +8,7 @@ SCANNAR_FILES = ./lib/Scanner/Token.cpp \
 PARSER_FILES = ./lib/Parser/ParseError.cpp \
 				./lib/Parser/Parser.cpp \
 				./lib/Parser/Expression/Expr.cpp \
+				./lib/Parser/Expression/Assign.cpp \
 				./lib/Parser/Expression/Binary.cpp \
 				./lib/Parser/Expression/Grouping.cpp \
 				./lib/Parser/Expression/Literal.cpp \

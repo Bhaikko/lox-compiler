@@ -224,7 +224,6 @@ void Scanner::string()
         source->substr(start + 1, current - start - 2)
     );
 
-    // std::cout << *value << std::endl;
     addToken(TokenType::STRING, value);
 }
 

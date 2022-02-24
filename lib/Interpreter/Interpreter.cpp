@@ -119,6 +119,14 @@ std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
     }
 }
 
+std::string* Interpreter::visitAssignExpr(Expr::Assign* expr)
+{
+    std::string* value = evaluate(expr->value);
+    environment->assign(expr->name, value);
+
+    return value;
+}
+
 std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
 {
     return environment->get(expr->name);
@@ -126,8 +134,8 @@ std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
 
 void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
 {
-    std::string* value = evaluate(stmt->expression);
-    std::cout << stringify(value) << std::endl;
+    evaluate(stmt->expression);
+    
     return nullptr;
 }
 

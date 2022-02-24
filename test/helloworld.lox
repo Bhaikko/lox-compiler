@@ -3,3 +3,9 @@ print "Hello World";
 var a = 2;
 var b = 2;
 print a / b;
+
+a = 3;
+print a / b;
+
+a = a / b * b;
+print a;
