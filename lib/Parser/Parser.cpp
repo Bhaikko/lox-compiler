@@ -7,7 +7,39 @@ Parser::Parser(std::vector<Token*>* tokens)
 
 Expr::Expr* Parser::expression()
 {
-    return equality();
+    return assignment();
+}
+
+Expr::Expr* Parser::assignment()
+{
+    // Since, only one look ahead
+    // we first treat l-value as expression and calculate it
+    // Later it is recasted to decide if it Variable
+    Expr::Expr* expr = equality();  // This falls to primary then returns IDENTIFIER
+
+    if (match(TokenType::EQUAL)) {
+        Token* equals = previous();
+        Expr::Expr* value = assignment();
+
+        // Checking if current expression is instance of Variable
+        // Converting r-value expression to l-value representation
+        if (Expr::Variable* e = dynamic_cast<Expr::Variable*>(expr)) {
+            Token* name = e->name;
+            return new Expr::Assign(name, value);
+        }
+
+        // If l-value as expression isn't valid assigment target
+        // We report an error
+        error(equals, "Invalid Assignment target.");
+    }
+
+    /*
+        The end result of this trick is an assignment expression tree node
+        that knows what it is assigning to and has an expression subtree for the value
+        being assigned. All with only a single token of lookahead and no backtracking.
+    */
+
+    return expr;
 }
 
 std::vector<Stmt::Stmt*>* Parser::parse() 

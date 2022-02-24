@@ -7,7 +7,7 @@ namespace Expr {
     class Assign: public Expr 
     {
         public:
-            Token* name;
+            Token* name;        
             Expr* value;
 
         public:

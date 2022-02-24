@@ -23,6 +23,7 @@ class Parser
         // Functions to parse Non Terminals
         // Binary Operations
         Expr::Expr* expression();
+        Expr::Expr* assignment();
         Expr::Expr* equality();
         Expr::Expr* comparison();
         Expr::Expr* term();
