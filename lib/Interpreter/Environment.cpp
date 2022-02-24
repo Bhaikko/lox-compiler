@@ -3,6 +3,13 @@
 Environment::Environment()
 {
     this->values = new std::unordered_map<std::string, std::string*>();
+    this->enclosing = nullptr;
+}
+
+Environment::Environment(Environment* enclosing)
+{
+    this->values = new std::unordered_map<std::string, std::string*>();
+    this->enclosing = enclosing;
 }
 
 void Environment::define(std::string* name, std::string* value)
@@ -17,6 +24,11 @@ std::string* Environment::get(Token* name)
         return values->at(*(name->lexeme));
     }
 
+    if (enclosing != nullptr) {
+        // Recursively searches in enclosing environment
+        return enclosing->get(name);
+    }
+
     throw new RuntimeError(name, "Undefined variable '" + *(name->lexeme) + "'.");
 }
 
@@ -24,7 +36,12 @@ void Environment::assign(Token* name, std::string* value)
 {
     if (values->find(*(name->lexeme)) != values->end()) {
         (*values)[*(name->lexeme)] = value;
+        return;
+    }
 
+    if (enclosing != nullptr) {
+        // Recursively look for name to assign too
+        enclosing->assign(name, value);
         return;
     }
 

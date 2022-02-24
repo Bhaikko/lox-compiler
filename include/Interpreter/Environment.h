@@ -12,7 +12,12 @@ class Environment
         std::unordered_map<std::string, std::string*>* values;
 
     public:
+        // Reference to Environment of parent block
+        Environment* enclosing;
+
+    public:
         Environment();
+        Environment(Environment* enclosing);
 
     public:
         /**
