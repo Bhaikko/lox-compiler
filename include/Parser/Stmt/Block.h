@@ -13,6 +13,8 @@ namespace Stmt {
 
         public:
             Block();
-            Block(std::vector<Stmt::Stmt*>* statements);
+            Block(std::vector<Stmt*>* statements);
+
+            virtual void* accept(Visitor<void*>* visitor) override;
     };
 }

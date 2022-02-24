@@ -161,7 +161,9 @@ void* Interpreter::visitVarStmt(Stmt::Var* stmt)
 
 void* Interpreter::visitBlockStmt(Stmt::Block* stmt)
 {
+    executeBlock(stmt->statements, new Environment(environment));
 
+    return nullptr;
 }
 
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
