@@ -184,6 +184,10 @@ Expr::Expr* Parser::primary()
  */
 Stmt::Stmt* Parser::statement()
 {
+    if (match(TokenType::IF)) {
+        return ifStatement();
+    }
+
     if (match(TokenType::PRINT)) {
         // PRINT consumed before calling this function
         return printStatement();
@@ -210,6 +214,23 @@ Stmt::Stmt* Parser::expressionStatment()
     consume(TokenType::SEMICOLON, "Expect ';' after expression. ");
 
     return new Stmt::Expression(expr);
+}
+
+Stmt::Stmt* Parser::ifStatement()
+{
+    consume(TokenType::LEFT_PAREN, "Expect '(' after 'if'.");
+    Expr::Expr* condition = expression();
+    consume(TokenType::RIGHT_PAREN, "Expect ')' after if condition");
+
+    Stmt::Stmt* thenBranch = statement();
+    Stmt::Stmt* elseBranch = nullptr;
+
+    // Nested Ifs handled with else bind to nearest preceding if
+    if (match(TokenType::ELSE)) {
+        elseBranch = statement();
+    }
+
+    return new Stmt::If(condition, thenBranch, elseBranch);
 }
 
 std::vector<Stmt::Stmt*>* Parser::block()
