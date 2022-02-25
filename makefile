@@ -19,6 +19,7 @@ PARSER_FILES = ./lib/Parser/ParseError.cpp \
 				./lib/Parser/Stmt/Print.cpp \
 				./lib/Parser/Stmt/Var.cpp \
 				./lib/Parser/Stmt/Block.cpp \
+				./lib/Parser/Stmt/If.cpp \
 
 TOOLS_FILES = 	./lib/Parser/AstPrinter.cpp \
 				./lib/Interpreter/Environment.cpp \

@@ -1,0 +1,8 @@
+var a = true;
+print a;
+
+if (a) {
+    print "If";
+} else {
+    print "else";
+}
