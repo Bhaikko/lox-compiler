@@ -32,6 +32,11 @@ _Lower Non terminals have higher precedence_
 ```
 Lox follows Ruby's rule: false and nil are falsey.
 Everything else is true
+```
 
+### Logical Expression
+```
+Short circuiting implemented for Boolean expressions
 And has higher precedence than Or
+
 ```

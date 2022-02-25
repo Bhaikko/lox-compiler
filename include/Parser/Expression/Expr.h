@@ -9,6 +9,7 @@ namespace Expr {
     class Unary;
     class Variable;
     class Assign;
+    class Logical;
 
     // "Visitor base class"
     template <class T>
@@ -22,6 +23,7 @@ namespace Expr {
             virtual T visitUnaryExpr(Unary* expr) { return T(); }
             virtual T visitVariableExpr(Variable* expr) { return T(); }
             virtual T visitAssignExpr(Assign* expr) { return T(); }
+            virtual T visitLogicalExpr(Logical* expr) { return T(); }
 
     };
 
