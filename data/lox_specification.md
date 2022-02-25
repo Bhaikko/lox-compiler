@@ -14,18 +14,24 @@
                     ( "else" statement )? ;
 
     expression  ->  assignment;
-    assignment  ->  IDENTIFIER "=" assignment | equality ;
+    assignment  ->  IDENTIFIER "=" assignment | logic_or ;
+    logic_or    ->  logic_and ( "or" logic_and )* ;
+    logic_and   ->  equality ( "and" equality )* ;
     equality    ->  comparison ( ( "!=" | "==" ) comparison )* ;
     comparison  ->  term ( ( ">" | ">=" | "<" | "<=" ) term )* ; 
     term        ->  factor ( ( "-" | "+" ) factor )* ;
     factor      ->  unary ( ( "/" | "*" ) unary )* ;
     unary       ->  ("!" | "-" ) unary
-                |   primary;
+                    |   primary;
     primary     ->  NUMBER | STRING | "true" | "false" | "nil"
-                |   "(" expression ")" | IDENTIFIER ;
+                    |   "(" expression ")" | IDENTIFIER ;
 ```
 _Lower Non terminals have higher precedence_
 
 ### Non boolean values and Bang operator
-Lox follows Ruby's rule: false and nil are falsey. <br/>
+```
+Lox follows Ruby's rule: false and nil are falsey.
 Everything else is true
+
+And has higher precedence than Or
+```
