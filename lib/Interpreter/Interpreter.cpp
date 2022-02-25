@@ -166,6 +166,17 @@ void* Interpreter::visitBlockStmt(Stmt::Block* stmt)
     return nullptr;
 }
 
+void* Interpreter::visitIfStmt(Stmt::If* stmt)
+{
+    if (*isTruthy(evaluate(stmt->condition)) != "false") {
+        execute(stmt->thenBranch);
+    } else if (stmt->elseBranch != nullptr) {
+        execute(stmt->elseBranch);
+    }
+
+    return nullptr;
+}
+
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
 {
     try {
