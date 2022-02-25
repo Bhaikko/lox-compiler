@@ -9,6 +9,7 @@ namespace Stmt {
     class Expression;
     class Var;
     class Block;
+    class If;
     
     template <class T>
     class Visitor
@@ -18,6 +19,7 @@ namespace Stmt {
             virtual T visitExpressionStmt(Stmt::Expression* stmt) { return T(); }
             virtual T visitVarStmt(Stmt::Var* stmt) { return T(); }
             virtual T visitBlockStmt(Stmt::Block* stmt) { return T(); }
+            virtual T visitIfStmt(Stmt::If* stmt) { return T(); }
     };
 
     class Stmt

@@ -5,10 +5,13 @@
     program     ->  declaration* EOF ;
     declaration ->  varDecl | statement;
     varDecl     ->  "var" IDENTIFIER ( "=" expression )? ";" ;
-    statement   ->  exprStmt | printStmt | block ;
+    statement   ->  exprStmt | printStmt | block | ifStmt;
+
     exprStmt    ->  expression ";" ;
     printStmt   ->  "print" expression ";" ;
     block       ->  "{" declaration* "}" ;
+    ifStmt      ->  "if" "(" expression ")" statement
+                    ( "else" statement )? ;
 
     expression  ->  assignment;
     assignment  ->  IDENTIFIER "=" assignment | equality ;
