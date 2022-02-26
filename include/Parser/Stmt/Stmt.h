@@ -10,6 +10,7 @@ namespace Stmt {
     class Var;
     class Block;
     class If;
+    class While;
     
     template <class T>
     class Visitor
@@ -20,6 +21,7 @@ namespace Stmt {
             virtual T visitVarStmt(Stmt::Var* stmt) { return T(); }
             virtual T visitBlockStmt(Stmt::Block* stmt) { return T(); }
             virtual T visitIfStmt(Stmt::If* stmt) { return T(); }
+            virtual T visitWhileStmt(Stmt::While* stmt) { return T(); }
     };
 
     class Stmt
