@@ -37,6 +37,7 @@ class Interpreter:
         virtual void* visitVarStmt(Stmt::Var* stmt) override;
         virtual void* visitBlockStmt(Stmt::Block* stmt) override;
         virtual void* visitIfStmt(Stmt::If* stmt) override;
+        virtual void* visitWhileStmt(Stmt::While* stmt) override;
 
     private:
         // Evaluation of Every expression is done in post order

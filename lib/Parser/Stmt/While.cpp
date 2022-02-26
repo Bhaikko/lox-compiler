@@ -8,5 +8,5 @@ Stmt::While::While(Expr::Expr* condition, Stmt* body)
 
 void* Stmt::While::accept(Visitor<void*>* visitor)
 {
-    visitor->visitWhileStmt(this);
+    return visitor->visitWhileStmt(this);
 }

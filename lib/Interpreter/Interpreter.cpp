@@ -202,6 +202,15 @@ void* Interpreter::visitIfStmt(Stmt::If* stmt)
     return nullptr;
 }
 
+void* Interpreter::visitWhileStmt(Stmt::While* stmt)
+{
+    while (*isTruthy(evaluate(stmt->condition)) != "false") {
+        execute(stmt->body);
+    }
+
+    return nullptr;
+}
+
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
 {
     try {
