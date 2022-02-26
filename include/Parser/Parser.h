@@ -24,6 +24,8 @@ class Parser
         // Binary Operations
         Expr::Expr* expression();
         Expr::Expr* assignment();
+        Expr::Expr* or_();
+        Expr::Expr* and_();
         Expr::Expr* equality();
         Expr::Expr* comparison();
         Expr::Expr* term();

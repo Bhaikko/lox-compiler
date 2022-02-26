@@ -15,7 +15,7 @@ Expr::Expr* Parser::assignment()
     // Since, only one look ahead
     // we first treat l-value as expression and calculate it
     // Later it is recasted to decide if it Variable
-    Expr::Expr* expr = equality();  // This falls to primary then returns IDENTIFIER
+    Expr::Expr* expr = or_();  // This falls to primary then returns IDENTIFIER
 
     if (match(TokenType::EQUAL)) {
         Token* equals = previous();
@@ -38,6 +38,33 @@ Expr::Expr* Parser::assignment()
         that knows what it is assigning to and has an expression subtree for the value
         being assigned. All with only a single token of lookahead and no backtracking.
     */
+    return expr;
+}
+
+Expr::Expr* Parser::or_()
+{
+    Expr::Expr* expr = and_();
+
+    while (match(TokenType::OR)) {
+        Token* operator_ = previous();
+        Expr::Expr* right = and_();
+
+        expr = new Expr::Logical(expr, operator_, right);
+    }
+
+    return expr;
+}
+
+Expr::Expr* Parser::and_()
+{
+    Expr::Expr* expr = equality();
+
+    while (match(TokenType::AND)) {
+        Token* operator_ = previous();
+        Expr::Expr* right = equality();
+
+        expr = new Expr::Logical(expr, operator_, right);
+    }
 
     return expr;
 }

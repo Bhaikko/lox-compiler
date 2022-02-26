@@ -9,3 +9,4 @@
 #include "./Unary.h"
 #include "./Variable.h"
 #include "./Assign.h"
+#include "./Logical.h"
