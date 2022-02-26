@@ -8,11 +8,6 @@
 
 int main(int argc, char** argv)
 {
-    // // Only for debugging purposes
-    // char path[] = "./test/loops.lox";
-    // // Only for Debugging Purposes
-    // Lox::runFile(path);
-
     if (argc > 2) {
         std::cout << "Usage: jlox [script]" << std::endl;
         exit(1);

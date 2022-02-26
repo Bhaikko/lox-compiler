@@ -204,7 +204,12 @@ void* Interpreter::visitIfStmt(Stmt::If* stmt)
 
 void* Interpreter::visitWhileStmt(Stmt::While* stmt)
 {
-    while (*isTruthy(evaluate(stmt->condition)) != "false") {
+    while (true) {
+        std::string condition = *isTruthy(evaluate(stmt->condition));
+        if (condition == "false" || condition == "0") {
+            break;
+        }
+
         execute(stmt->body);
     }
 
@@ -286,20 +291,20 @@ double Interpreter::string_to_double(std::string* literal)
 bool Interpreter::isDouble(std::string* literal)
 {
     bool decimal = false;
-    for (unsigned int i = 0; i < literal->size(); i++) {
-        if (
+
+    unsigned int i = literal->at(0) == '-' ? 1 : 0;
+    for (; i < literal->size(); i++) {
+        if (literal->at(i) == '.') {
+            if (decimal) {
+                return false;
+            } else {
+                decimal = true;
+            }
+        } else if (
             literal->at(i) < '0' || 
             literal->at(i) > '9'
         ) {
-            if (literal->at(i) == '.') {
-                if (decimal) {
-                    return false;
-                } else {
-                    decimal = true;
-                }
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
