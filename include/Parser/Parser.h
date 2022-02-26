@@ -44,6 +44,7 @@ class Parser
         Stmt::Stmt* printStatement();
         Stmt::Stmt* expressionStatment();
         Stmt::Stmt* ifStatement();
+        Stmt::Stmt* whileStatement();
         Stmt::Stmt* varDeclaration();
         std::vector<Stmt::Stmt*>* block();
 

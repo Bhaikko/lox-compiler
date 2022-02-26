@@ -211,13 +211,17 @@ Expr::Expr* Parser::primary()
  */
 Stmt::Stmt* Parser::statement()
 {
+    if (match(TokenType::PRINT)) {
+        // PRINT consumed before calling this function
+        return printStatement();
+    }
+
     if (match(TokenType::IF)) {
         return ifStatement();
     }
 
-    if (match(TokenType::PRINT)) {
-        // PRINT consumed before calling this function
-        return printStatement();
+    if (match(TokenType::WHILE)) {
+        return whileStatement();
     }
 
     if (match(TokenType::LEFT_BRACE)) {
@@ -258,6 +262,17 @@ Stmt::Stmt* Parser::ifStatement()
     }
 
     return new Stmt::If(condition, thenBranch, elseBranch);
+}
+
+Stmt::Stmt* Parser::whileStatement()
+{
+    consume(TokenType::LEFT_PAREN, "Expect '(' after 'while'.");
+    Expr::Expr* condition = expression();
+
+    consume(TokenType::RIGHT_PAREN, "Expect ')' after condition.");
+    Stmt::Stmt* body = statement();
+
+    return new Stmt::While(condition, body);
 }
 
 std::vector<Stmt::Stmt*>* Parser::block()
