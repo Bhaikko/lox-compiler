@@ -28,6 +28,7 @@ class Interpreter:
         virtual std::string* visitBinaryExpr(Expr::Binary* expr) override;
         virtual std::string* visitVariableExpr(Expr::Variable* expr) override;
         virtual std::string* visitAssignExpr(Expr::Assign* expr) override;
+        virtual std::string* visitLogicalExpr(Expr::Logical* expr) override;
 
     // Statements Handling
     public:

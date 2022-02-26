@@ -14,6 +14,7 @@ PARSER_FILES = ./lib/Parser/ParseError.cpp \
 				./lib/Parser/Expression/Literal.cpp \
 				./lib/Parser/Expression/Unary.cpp \
 				./lib/Parser/Expression/Variable.cpp \
+				./lib/Parser/Expression/Logical.cpp \
 				./lib/Parser/Stmt/Stmt.cpp \
 				./lib/Parser/Stmt/Expression.cpp \
 				./lib/Parser/Stmt/Print.cpp \

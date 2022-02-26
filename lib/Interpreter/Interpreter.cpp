@@ -36,6 +36,27 @@ std::string* Interpreter::visitUnaryExpr(Expr::Unary* expr)
     }
 }
 
+std::string* Interpreter::visitLogicalExpr(Expr::Logical* expr)
+{
+    // Calculated in in-order to support short circuit evaluation
+
+    std::string* left = evaluate(expr->left);
+
+    // Checking if we can short circuit the logical expression
+    // Based on the evaluated left value
+    if (expr->operator_->type == TokenType::OR) {
+        if (*isTruthy(left) != "false") {
+            return left;
+        } 
+    } else {
+        if (*isTruthy(left) == "false") {
+            return left;
+        }
+    }
+
+    return evaluate(expr->right);
+}
+
 std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
 {
     std::string* left = evaluate(expr->left);
@@ -236,7 +257,10 @@ std::string* Interpreter::evaluate(Expr::Expr* expr)
 
 std::string* Interpreter::isTruthy(std::string* object)
 {
-    if (object == nullptr) {
+    if (
+        object == nullptr || 
+        *object == "nil"
+    ) {
         return new std::string("false");
     }
 
