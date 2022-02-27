@@ -45,6 +45,13 @@ class Parser
         Stmt::Stmt* expressionStatment();
         Stmt::Stmt* ifStatement();
         Stmt::Stmt* whileStatement();
+        /**
+         * @brief This function converts a for loop statment into while loop
+         * Hence, it does not require a syntax tree of its own.
+         * 
+         * @return Stmt::Stmt* 
+         */
+        Stmt::Stmt* forStatement();
         Stmt::Stmt* varDeclaration();
         std::vector<Stmt::Stmt*>* block();
 

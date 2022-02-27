@@ -3,7 +3,7 @@
 * Add support for ternary operator
 * Add support for Bitwise operator
 * Handle Divide By Zero Exception
+* Add support for break and continue
 
 ## Refactoring Notes
-* Add namespaces
-* Refactor Visitor pattern for generic types
+* Refactor Visitor pattern for generic types in Expression

@@ -216,6 +216,10 @@ Stmt::Stmt* Parser::statement()
         return printStatement();
     }
 
+    if (match(TokenType::FOR)) {
+        return forStatement();
+    }
+
     if (match(TokenType::IF)) {
         return ifStatement();
     }
@@ -273,6 +277,78 @@ Stmt::Stmt* Parser::whileStatement()
     Stmt::Stmt* body = statement();
 
     return new Stmt::While(condition, body);
+}
+
+Stmt::Stmt* Parser::forStatement()
+{
+    consume(TokenType::LEFT_PAREN, "Expect '(' after 'for'.");
+
+    // Handling First Clause - Initializer
+    // The below code differentiates between
+    // Empty initialization, deleration or expression in first clause
+    Stmt::Stmt* initializer;
+    if (match(TokenType::SEMICOLON)) {
+        initializer = nullptr;
+    } else if (match(TokenType::VAR)) {
+        initializer = varDeclaration();
+    } else {
+        initializer = expressionStatment();
+    }
+
+    // Handling Second Clause - condition
+    Expr::Expr* condition = nullptr;
+    // Checking if current Token isnt Semicolon
+    // ie, there is an expression before semicolon token
+    if (!check(TokenType::SEMICOLON)) {
+        condition = expression();
+    }
+    consume(TokenType::SEMICOLON, "Expect ';' after loop condition.");
+    
+    // Handling Third Clause - increment
+    Expr::Expr* increment = nullptr;
+    if (!check(TokenType::RIGHT_PAREN)) {
+        increment = expression();
+    }
+    // Increment in for always executes after the current body execution
+    // Hence if increment exists, it will be attached at the end of body.
+
+    consume(TokenType::RIGHT_PAREN, "Expect ')' after clauses.");
+
+    Stmt::Stmt* body = statement();
+
+    // Converting Parsed for loop sections into while loop (de-sugaring)
+
+    // Attaching increment at end of body if it exists
+    if (increment != nullptr) {
+        std::vector<Stmt::Stmt*>* statements = new std::vector<Stmt::Stmt*>();
+        statements->push_back(body);
+        statements->push_back(new Stmt::Expression(increment));
+
+        body = new Stmt::Block(statements);
+    }
+
+    // if no condition exists, set it as true
+    if (condition == nullptr) {
+        condition = new Expr::Literal(new std::string("true"));
+    }
+
+    // Converting the parsed for loop in while loop using
+    // initialization, condition and body combined with increment
+    body = new Stmt::While(condition, body);
+
+    // If initializer exist
+    // We create a block with initilization as its first statement
+    // The envrioment related to that block will automatically be handled
+    // by interpreter
+    if (initializer != nullptr) {
+        std::vector<Stmt::Stmt*>* statements = new std::vector<Stmt::Stmt*>();
+        statements->push_back(initializer);
+        statements->push_back(body);
+
+        body = new Stmt::Block(statements);
+    }
+
+    return body;
 }
 
 std::vector<Stmt::Stmt*>* Parser::block()

@@ -6,7 +6,7 @@
     declaration ->  varDecl | statement;
     varDecl     ->  "var" IDENTIFIER ( "=" expression )? ";" ;
     statement   ->  exprStmt | printStmt | block | ifStmt |
-                    whileStmt ;
+                    whileStmt | forStmt;
 
     exprStmt    ->  expression ";" ;
     printStmt   ->  "print" expression ";" ;
@@ -14,6 +14,9 @@
     ifStmt      ->  "if" "(" expression ")" statement
                     ( "else" statement )? ;
     whileStmt   ->  "while" "(" expression ")" statement;
+    forStmt     ->  "for" "(" (varDevl | exprStmt | ";" )
+                    expression? ";" 
+                    expression? ")" statement ;
 
     expression  ->  assignment;
     assignment  ->  IDENTIFIER "=" assignment | logic_or ;
