@@ -151,14 +151,20 @@ std::string* Interpreter::visitCallExpr(Expr::Call* expr)
         arguements->push_back(evaluate(arguement));
     }
 
-    
-    if (LoxCallable* e = dynamic_cast<LoxCallable*>(expr)) {
+    // Typecasting current calle expression having name and arguements 
+    // to LoxCallable function    
+    if (LoxCallable* function = dynamic_cast<LoxCallable*>(expr)) {
+        // Handling Errors before calling a function
+        if (arguements->size() != function->arity()) {
+            throw new RuntimeError(
+                expr->paren,
+                "Exprected " + std::to_string(function->arity()) + " arguements but got " +
+                std::to_string(arguements->size()) + "."
+            );
+        }
+
         // Calling the Function by its name and evaluated arguements
-        // LoxCallable* function = (LoxCallable)callee;
-        // return function.ca
-        // NEED TO CHANGE THIS FOR CALLING FUNCTION    
-        
-        return callee;
+        return function->call(this, arguements);
 
     } else {
         throw new RuntimeError(expr->paren, "Can only call functions and classes.");
