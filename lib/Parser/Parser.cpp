@@ -172,7 +172,42 @@ Expr::Expr* Parser::unary()
         return new Expr::Unary(operator_, right);
     }
 
-    return primary();
+    return call();
+}
+
+Expr::Expr* Parser::call()
+{
+    Expr::Expr* expr = primary();
+
+    while (true) {
+        if (match(TokenType::LEFT_PAREN)) {
+            // Processing arguments 
+            // If left paren matched then its a function call
+            // Call will be returned
+            expr = finishCall(expr);
+        } else {
+            break;
+        }
+    }
+
+    return expr;
+}
+
+Expr::Expr* Parser::finishCall(Expr::Expr* callee)
+{
+    std::vector<Expr::Expr*>* arguements = new std::vector<Expr::Expr*>();
+
+    // Handling zero arguement case
+    if (!check(TokenType::RIGHT_PAREN)) {
+        // One arguement as expression required
+        do {
+            arguements->push_back(expression());
+        } while (match(TokenType::COMMA));
+    }
+
+    Token* paren = consume(TokenType::RIGHT_PAREN, "Expect ')' after arguements.");
+
+    return new Expr::Call(callee, paren, arguements);
 }
 
 Expr::Expr* Parser::primary()

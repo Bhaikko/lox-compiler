@@ -34,6 +34,10 @@ class Parser
         // Unary Operations
         Expr::Expr* unary();
 
+        Expr::Expr* call();
+        // Processes arguements of the function call
+        Expr::Expr* finishCall(Expr::Expr* callee);
+
         // Literals Operations
         Expr::Expr* primary();
 
