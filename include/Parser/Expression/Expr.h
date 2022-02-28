@@ -10,6 +10,7 @@ namespace Expr {
     class Variable;
     class Assign;
     class Logical;
+    class Call;
 
     // "Visitor base class"
     template <class T>
@@ -24,7 +25,7 @@ namespace Expr {
             virtual T visitVariableExpr(Variable* expr) { return T(); }
             virtual T visitAssignExpr(Assign* expr) { return T(); }
             virtual T visitLogicalExpr(Logical* expr) { return T(); }
-
+            virtual T visitCallExpr(Call* expr) { return T(); }
     };
 
     /**
