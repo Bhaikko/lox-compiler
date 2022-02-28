@@ -201,6 +201,10 @@ Expr::Expr* Parser::finishCall(Expr::Expr* callee)
     if (!check(TokenType::RIGHT_PAREN)) {
         // One arguement as expression required
         do {
+            if (arguements->size() >= 255) {
+                error(peek(), "Can't have more than 255 arguments.");
+            }
+            
             arguements->push_back(expression());
         } while (match(TokenType::COMMA));
     }

@@ -8,6 +8,7 @@
 
 #include "./RuntimeError.h"
 #include "./Environment.h"
+#include "./LoxCallable.h"
 
 class Interpreter: 
     public Expr::Visitor<std::string*>,
@@ -29,6 +30,7 @@ class Interpreter:
         virtual std::string* visitVariableExpr(Expr::Variable* expr) override;
         virtual std::string* visitAssignExpr(Expr::Assign* expr) override;
         virtual std::string* visitLogicalExpr(Expr::Logical* expr) override;
+        virtual std::string* visitCallExpr(Expr::Call* expr) override;
 
     // Statements Handling
     public:

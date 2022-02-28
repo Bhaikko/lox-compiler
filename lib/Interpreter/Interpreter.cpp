@@ -140,6 +140,32 @@ std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
     }
 }
 
+std::string* Interpreter::visitCallExpr(Expr::Call* expr)
+{
+    std::string* callee = evaluate(expr->callee);
+
+    // Contains evaluated arguements
+    std::vector<std::string*>* arguements = new std::vector<std::string*>();
+
+    for (Expr::Expr* arguement: *(expr->arguments)) {
+        arguements->push_back(evaluate(arguement));
+    }
+
+    
+    if (LoxCallable* e = dynamic_cast<LoxCallable*>(expr)) {
+        // Calling the Function by its name and evaluated arguements
+        // LoxCallable* function = (LoxCallable)callee;
+        // return function.ca
+        // NEED TO CHANGE THIS FOR CALLING FUNCTION    
+        
+        return callee;
+
+    } else {
+        throw new RuntimeError(expr->paren, "Can only call functions and classes.");
+    }
+
+}
+
 std::string* Interpreter::visitAssignExpr(Expr::Assign* expr)
 {
     std::string* value = evaluate(expr->value);
