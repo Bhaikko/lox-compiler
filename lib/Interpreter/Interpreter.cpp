@@ -8,10 +8,10 @@ Interpreter::Interpreter()
 
 void Interpreter::setupNativeFunctions()
 {
-    // this->globals->define(
-    //     new std::string("clock"),
-        
-    // );
+    this->globals->define(
+        new std::string("clock"),
+        static_cast<void*>(new Clock())
+    );
 }
 
 std::string* Interpreter::visitLiteralExpr(Expr::Literal* expr)
@@ -185,14 +185,17 @@ std::string* Interpreter::visitCallExpr(Expr::Call* expr)
 std::string* Interpreter::visitAssignExpr(Expr::Assign* expr)
 {
     std::string* value = evaluate(expr->value);
-    environment->assign(expr->name, value);
+    environment->assign(
+        expr->name, 
+        static_cast<void*>(value)
+    );
 
     return value;
 }
 
 std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
 {
-    return environment->get(expr->name);
+    return static_cast<std::string*>(environment->get(expr->name));
 }
 
 void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
@@ -218,7 +221,11 @@ void* Interpreter::visitVarStmt(Stmt::Var* stmt)
         value = evaluate(stmt->initializer);
     }
 
-    environment->define(stmt->name->lexeme, value);
+    environment->define(
+        stmt->name->lexeme, 
+        static_cast<void*>(value)
+    );
+
     return nullptr;
 }
 

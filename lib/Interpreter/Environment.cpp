@@ -2,23 +2,23 @@
 
 Environment::Environment()
 {
-    this->values = new std::unordered_map<std::string, std::string*>();
+    this->values = new std::unordered_map<std::string, void*>();
     this->enclosing = nullptr;
 }
 
 Environment::Environment(Environment* enclosing)
 {
-    this->values = new std::unordered_map<std::string, std::string*>();
+    this->values = new std::unordered_map<std::string, void*>();
     this->enclosing = enclosing;
 }
 
-void Environment::define(std::string* name, std::string* value)
+void Environment::define(std::string* name, void* value)
 {
     // Not checking existing variable for redefinition
     (*values)[*name] = value;
 }
 
-std::string* Environment::get(Token* name)
+void* Environment::get(Token* name)
 {
     if (values->find(*(name->lexeme)) != values->end()) {
         return values->at(*(name->lexeme));
@@ -32,7 +32,7 @@ std::string* Environment::get(Token* name)
     throw new RuntimeError(name, "Undefined variable '" + *(name->lexeme) + "'.");
 }
 
-void Environment::assign(Token* name, std::string* value)
+void Environment::assign(Token* name, void* value)
 {
     if (values->find(*(name->lexeme)) != values->end()) {
         (*values)[*(name->lexeme)] = value;

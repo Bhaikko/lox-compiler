@@ -6,10 +6,12 @@
 #include "./../Scanner/Token.h"
 #include "./RuntimeError.h"
 
+#include "./../Native/Clock.h"
+
 class Environment
 {
     private:
-        std::unordered_map<std::string, std::string*>* values;
+        std::unordered_map<std::string, void*>* values;
 
     public:
         // Reference to Environment of parent block
@@ -26,7 +28,7 @@ class Environment
          * @param name 
          * @param value 
          */
-        void define(std::string* name, std::string* value);
+        void define(std::string* name, void* value);
 
         /**
          * @brief Used to assign new value to identifier 
@@ -36,6 +38,6 @@ class Environment
          * @param name 
          * @param value 
          */
-        void assign(Token* name, std::string* value);
-        std::string* get(Token* name);
+        void assign(Token* name, void* value);
+        void* get(Token* name);
 };
