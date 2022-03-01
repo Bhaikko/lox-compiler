@@ -7,3 +7,4 @@
 #include "./Block.h"
 #include "./If.h"
 #include "./While.h"
+#include "./Function.h"

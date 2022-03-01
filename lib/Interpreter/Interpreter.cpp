@@ -8,10 +8,10 @@ Interpreter::Interpreter()
 
 void Interpreter::setupNativeFunctions()
 {
-    this->globals->define(
-        new std::string("clock"),
-        new std::string("<native fn>")
-    );
+    // this->globals->define(
+    //     new std::string("clock"),
+        
+    // );
 }
 
 std::string* Interpreter::visitLiteralExpr(Expr::Literal* expr)

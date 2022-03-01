@@ -12,3 +12,8 @@ std::string* Clock::call(Interpreter* interpreter, std::vector<std::string*>* ar
 
     return new std::string(std::to_string(now_c));
 }
+
+std::string* Clock::toString()
+{
+    return new std::string("<native fn>");
+}
