@@ -3,11 +3,13 @@
 ### Expression Grammar
 ```
     program     ->  declaration* EOF ;
-    declaration ->  varDecl | statement;
+    declaration ->  funDecl | varDecl | statement;
+    funDecl     ->  "fun" function;
     varDecl     ->  "var" IDENTIFIER ( "=" expression )? ";" ;
     statement   ->  exprStmt | printStmt | block | ifStmt |
                     whileStmt | forStmt;
 
+    function    ->  IDENTIFIER "(" parameters? ")" block ;
     exprStmt    ->  expression ";" ;
     printStmt   ->  "print" expression ";" ;
     block       ->  "{" declaration* "}" ;
@@ -29,6 +31,7 @@
     unary       ->  ("!" | "-" ) unary
                     |   call;
     call        ->  primary ( "(" arguments? ")" )* ;
+    parameters  ->  IDENTIFIER ( "," IDENTIFIER )* ;
     arguments   ->  expression ( "," expression )* ;
     primary     ->  NUMBER | STRING | "true" | "false" | "nil"
                     |   "(" expression ")" | IDENTIFIER ;
