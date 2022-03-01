@@ -445,6 +445,12 @@ Stmt::Stmt* Parser::function(std::string kind)
     }
 
     consume(TokenType::RIGHT_PAREN, "Expect ')' after paramters.");
+
+    // Parsing Function Body
+    consume(TokenType::LEFT_BRACE, "Expect '{' before " + kind + " body.");
+    std::vector<Stmt::Stmt*>* body = block();
+
+    return new Stmt::Function(name, parameters, body);
 }
 
 Stmt::Stmt* Parser::varDeclaration()
