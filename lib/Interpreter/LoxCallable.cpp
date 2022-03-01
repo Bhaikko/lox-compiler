@@ -14,8 +14,3 @@ std::string* LoxCallable::call(Interpreter* interpreter, std::vector<std::string
 {
     return nullptr;
 }
-
-std::string* LoxCallable::toString()
-{
-    return nullptr;
-}

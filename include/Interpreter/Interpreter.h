@@ -14,7 +14,7 @@ class Interpreter:
     public Expr::Visitor<std::string*>,
     public Stmt::Visitor<void*>
 {
-    private:
+    public:
         // Holds fixed ref to outermost env.
         Environment* globals;
         // Tracks the current environment, 
@@ -49,6 +49,8 @@ class Interpreter:
         // Evaluation of Every expression is done in post order
         std::string* evaluate(Expr::Expr* expr);
         std::string* isTruthy(std::string* object);
+
+    public:
         void execute(Stmt::Stmt* stmt);
         void executeBlock(std::vector<Stmt::Stmt*>* statements, Environment* environment);
 

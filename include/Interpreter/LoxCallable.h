@@ -11,5 +11,4 @@ class LoxCallable
         LoxCallable();
         virtual unsigned int arity();
         virtual std::string* call(Interpreter* interpreter, std::vector<std::string*>* arguments);
-        virtual std::string* toString();
 };
