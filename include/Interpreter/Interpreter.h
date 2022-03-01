@@ -15,6 +15,10 @@ class Interpreter:
     public Stmt::Visitor<void*>
 {
     private:
+        // Holds fixed ref to outermost env.
+        Environment* globals;
+        // Tracks the current environment, 
+        // Changes when entering and exiting scope
         Environment* environment;
 
     public:
@@ -67,6 +71,7 @@ class Interpreter:
     public:
         // Evaluates the expression and displays in proper format
         void interpret(std::vector<Stmt::Stmt*>* statements);
+        void setupNativeFunctions();
 
     
 };

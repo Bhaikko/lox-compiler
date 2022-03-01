@@ -5,7 +5,7 @@ LoxCallable::LoxCallable()
     
 }
 
-int LoxCallable::arity()
+unsigned int LoxCallable::arity()
 {
     return 0;
 }

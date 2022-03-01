@@ -2,7 +2,16 @@
 
 Interpreter::Interpreter()
 {
-    this->environment = new Environment();
+    this->globals = new Environment();
+    this->environment = this->globals;
+}
+
+void Interpreter::setupNativeFunctions()
+{
+    this->globals->define(
+        new std::string("clock"),
+        new std::string("<native fn>")
+    );
 }
 
 std::string* Interpreter::visitLiteralExpr(Expr::Literal* expr)
@@ -142,6 +151,7 @@ std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
 
 std::string* Interpreter::visitCallExpr(Expr::Call* expr)
 {
+    // MAY NEED TO FIX THIS IF FUNCTIONS DOESNT WORK
     std::string* callee = evaluate(expr->callee);
 
     // Contains evaluated arguements
@@ -153,7 +163,7 @@ std::string* Interpreter::visitCallExpr(Expr::Call* expr)
 
     // Typecasting current calle expression having name and arguements 
     // to LoxCallable function    
-    if (LoxCallable* function = dynamic_cast<LoxCallable*>(expr)) {
+    if (LoxCallable* function = dynamic_cast<LoxCallable*>(expr->callee)) {
         // Handling Errors before calling a function
         if (arguements->size() != function->arity()) {
             throw new RuntimeError(

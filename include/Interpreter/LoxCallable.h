@@ -9,6 +9,6 @@ class LoxCallable
 {
     public:
         LoxCallable();
-        virtual int arity();
+        virtual unsigned int arity();
         virtual std::string* call(Interpreter* interpreter, std::vector<std::string*>* arguments);
 };
