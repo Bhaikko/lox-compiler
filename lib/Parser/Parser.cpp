@@ -406,6 +406,10 @@ std::vector<Stmt::Stmt*>* Parser::block()
 Stmt::Stmt* Parser::declaration()
 {
     try {
+        if (match(TokenType::FUN)) {
+            return function("function");
+        }
+
         if (match(TokenType::VAR)) {
             return varDeclaration();
         }
@@ -418,6 +422,29 @@ Stmt::Stmt* Parser::declaration()
 
         return nullptr;
     }
+}
+
+Stmt::Stmt* Parser::function(std::string kind)
+{
+    // Identifier token for function name
+    Token* name = consume(TokenType::IDENTIFIER, "Expect " + kind + " name.");
+
+    // Parsing the parameter list
+    consume(TokenType::LEFT_PAREN, "Expect '(' after " + kind + " name.");
+    std::vector<Token*>* parameters = new std::vector<Token*>();
+    if (!check(TokenType::RIGHT_PAREN)) {
+        do {
+            if (parameters->size() >= 255) {
+                error(peek(), "Can't have more than 255 parameters.");
+            }
+
+            parameters->push_back(consume(
+                TokenType::IDENTIFIER, "Expect parameter name. "
+            ));
+        } while (match(TokenType::COMMA));
+    }
+
+    consume(TokenType::RIGHT_PAREN, "Expect ')' after paramters.");
 }
 
 Stmt::Stmt* Parser::varDeclaration()

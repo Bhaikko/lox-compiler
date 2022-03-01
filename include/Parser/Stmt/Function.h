@@ -14,6 +14,6 @@ namespace Stmt {
         public:
             Function(Token* name, std::vector<Token*>* params, std::vector<Stmt*>* body);
             void* accept(Visitor<void*>* visitor);
-         
+        
     };
 }
