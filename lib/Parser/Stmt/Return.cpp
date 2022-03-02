@@ -2,7 +2,7 @@
 
 Stmt::Return::Return(Token* keyword, Expr::Expr* value)
 {
-    this->keyword;
+    this->keyword = keyword;
     this->value = value;
 }
 

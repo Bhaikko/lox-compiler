@@ -25,8 +25,9 @@ std::string* LoxFunction::call(Interpreter* interpreter, std::vector<std::string
 
     try {
         interpreter->executeBlock(declaration->body, environment);
-    } catch (Runtime::Return returnValue) {
-        return static_cast<std::string*>(returnValue.value);
+    } catch (Runtime::Return* returnValue) {
+        // Used to return from callstack 
+        return static_cast<std::string*>(returnValue->value);
     }
 
     return nullptr;

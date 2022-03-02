@@ -283,19 +283,18 @@ void* Interpreter::visitReturnStmt(Stmt::Return* stmt)
     if (stmt->value != nullptr) {
         value = static_cast<void*>(evaluate(stmt->value));
     }
-
+    
     throw new Runtime::Return(value);
 }
 
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
 {
-    // Maybe responsible for bugged exception handling in runtime
     try {
         for (Stmt::Stmt* statement: *statements) {
             execute(statement);
         }
-    } catch (RuntimeError error) {
-        Lox::runtimeError(error);
+    } catch (RuntimeError* error) {
+        Lox::runtimeError(*error);
     }
 }
 
@@ -323,9 +322,9 @@ void Interpreter::executeBlock(std::vector<Stmt::Stmt*>* statments, Environment*
         for (Stmt::Stmt* statement: *statments) {
             execute(statement);
         }
-    } catch (RuntimeError error) {
-        Lox::runtimeError(error);
-    } 
+    } catch (RuntimeError* error) {
+        Lox::runtimeError(*error);
+    }
 
     this->environment = previous;
 }

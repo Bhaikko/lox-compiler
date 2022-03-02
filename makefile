@@ -24,14 +24,16 @@ PARSER_FILES = ./lib/Parser/ParseError.cpp \
 				./lib/Parser/Stmt/If.cpp \
 				./lib/Parser/Stmt/While.cpp \
 				./lib/Parser/Stmt/Function.cpp \
+				./lib/Parser/Stmt/Return.cpp \
 
 TOOLS_FILES = 	./lib/Parser/AstPrinter.cpp \
-				./lib/Interpreter/Environment.cpp \
-				./lib/Interpreter/Interpreter.cpp \
-				./lib/Interpreter/LoxCallable.cpp \
-				./lib/Interpreter/LoxFunction.cpp \
 
 INTERPRETER_FILES = ./lib/Interpreter/RuntimeError.cpp \
+					./lib/Interpreter/Environment.cpp \
+					./lib/Interpreter/LoxCallable.cpp \
+					./lib/Interpreter/LoxFunction.cpp \
+					./lib/Interpreter/Interpreter.cpp \
+					./lib/Interpreter/Return.cpp \
 					./lib/Lox.cpp \
 
 NATIVE_FILES =	./lib/Native/Clock.cpp \

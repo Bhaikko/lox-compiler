@@ -1,8 +1,8 @@
-var a = true;
+var a = true - 2;
 print a;
 
 
-if (a) {
+if (a == "false") {
     print "If";
 } else {
     print "else";

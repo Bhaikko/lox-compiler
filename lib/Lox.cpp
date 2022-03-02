@@ -29,8 +29,7 @@ void Lox::error(Token* token, std::string message)
 
 void Lox::runtimeError(RuntimeError error)
 {
-    std::cerr << error.what() << std::endl;
-    std::cerr << "[line " << error.token->line << " ]" << std::endl;
+    std::cerr << "[line " << error.token->line << " ] " << error.what() << std::endl;
 
     hadRuntimeError = true;
 }
