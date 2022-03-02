@@ -263,6 +263,10 @@ Stmt::Stmt* Parser::statement()
         return ifStatement();
     }
 
+    if (match(TokenType::RETURN)) {
+        return returnStatement();
+    }
+
     if (match(TokenType::WHILE)) {
         return whileStatement();
     }
@@ -465,6 +469,20 @@ Stmt::Stmt* Parser::varDeclaration()
     consume(TokenType::SEMICOLON, "Expect ';' after variable declaration");
 
     return new Stmt::Var(name, initializer);
+}
+
+Stmt::Stmt* Parser::returnStatement()
+{
+    Token* keyword = previous();
+
+    Expr::Expr* value = nullptr;
+    if (!check(TokenType::SEMICOLON)) {
+        value = expression();
+    }
+
+    consume(TokenType::SEMICOLON, "Expect ';' after return value.");
+
+    return new Stmt::Return(keyword, value);
 }
 
 bool Parser::match(std::vector<TokenType> tokenTypes)

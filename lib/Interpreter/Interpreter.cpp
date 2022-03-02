@@ -276,8 +276,20 @@ void* Interpreter::visitWhileStmt(Stmt::While* stmt)
     return nullptr;
 }
 
+void* Interpreter::visitReturnStmt(Stmt::Return* stmt)
+{
+    void* value = nullptr;
+
+    if (stmt->value != nullptr) {
+        value = static_cast<void*>(evaluate(stmt->value));
+    }
+
+    
+}
+
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
 {
+    // Maybe responsible for bugged exception handling in runtime
     try {
         for (Stmt::Stmt* statement: *statements) {
             execute(statement);

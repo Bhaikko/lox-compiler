@@ -46,6 +46,7 @@ class Interpreter:
         virtual void* visitIfStmt(Stmt::If* stmt) override;
         virtual void* visitWhileStmt(Stmt::While* stmt) override;
         virtual void* visitFunctionStmt(Stmt::Function* stmt) override;
+        virtual void* visitReturnStmt(Stmt::Return* stmt) override;
 
     private:
         // Evaluation of Every expression is done in post order

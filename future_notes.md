@@ -6,4 +6,6 @@
 * Add support for break and continue
 
 ## Refactoring Notes
+* Add Interpreter namespace
 * Refactor Visitor pattern for generic types in Expression
+* No catch on runtime errors fix
