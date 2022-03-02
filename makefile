@@ -29,6 +29,7 @@ TOOLS_FILES = 	./lib/Parser/AstPrinter.cpp \
 				./lib/Interpreter/Environment.cpp \
 				./lib/Interpreter/Interpreter.cpp \
 				./lib/Interpreter/LoxCallable.cpp \
+				./lib/Interpreter/LoxFunction.cpp \
 
 INTERPRETER_FILES = ./lib/Interpreter/RuntimeError.cpp \
 					./lib/Lox.cpp \

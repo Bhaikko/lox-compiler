@@ -9,6 +9,7 @@
 #include "./RuntimeError.h"
 #include "./Environment.h"
 #include "./LoxCallable.h"
+#include "./LoxFunction.h"
 
 class Interpreter: 
     public Expr::Visitor<std::string*>,
@@ -44,6 +45,7 @@ class Interpreter:
         virtual void* visitBlockStmt(Stmt::Block* stmt) override;
         virtual void* visitIfStmt(Stmt::If* stmt) override;
         virtual void* visitWhileStmt(Stmt::While* stmt) override;
+        virtual void* visitFunctionStmt(Stmt::Function* stmt) override;
 
     private:
         // Evaluation of Every expression is done in post order

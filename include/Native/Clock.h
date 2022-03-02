@@ -11,7 +11,7 @@ class Clock: public LoxCallable
         virtual unsigned int arity() override;
         virtual std::string* call(Interpreter* interpreter, std::vector<std::string*>* arguements) override;
 
-        friend std::ostream& operator<<(std::ostream& os, const Token& t);
+        friend std::ostream& operator<<(std::ostream& os, const Clock& t);
 };
 
 /*

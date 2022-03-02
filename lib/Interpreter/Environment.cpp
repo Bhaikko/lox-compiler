@@ -14,12 +14,18 @@ Environment::Environment(Environment* enclosing)
 
 void Environment::define(std::string* name, void* value)
 {
+    std::cout << 
+        *name << 
+        *static_cast<std::string*>(value) 
+    << std::endl;
     // Not checking existing variable for redefinition
     (*values)[*name] = value;
 }
 
 void* Environment::get(Token* name)
 {
+    std::cout << name->lexeme << std::endl;
+
     if (values->find(*(name->lexeme)) != values->end()) {
         return values->at(*(name->lexeme));
     }

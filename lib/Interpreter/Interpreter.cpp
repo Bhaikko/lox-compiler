@@ -152,7 +152,9 @@ std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
 std::string* Interpreter::visitCallExpr(Expr::Call* expr)
 {
     // MAY NEED TO FIX THIS IF FUNCTIONS DOESNT WORK
-    std::string* callee = evaluate(expr->callee);
+    // std::string* callee = evaluate(expr->callee);
+
+    std::cout << *evaluate(expr->callee) << std::endl;
 
     // Contains evaluated arguements
     std::vector<std::string*>* arguements = new std::vector<std::string*>();
@@ -247,6 +249,17 @@ void* Interpreter::visitIfStmt(Stmt::If* stmt)
     } else if (stmt->elseBranch != nullptr) {
         execute(stmt->elseBranch);
     }
+
+    return nullptr;
+}
+
+void* Interpreter::visitFunctionStmt(Stmt::Function* stmt)
+{
+    // Convertin
+    // Compile Time representation of function
+    // Runtime representation
+    LoxFunction* function = new LoxFunction(stmt);
+    environment->define(stmt->name->lexeme, function);
 
     return nullptr;
 }
