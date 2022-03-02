@@ -1,6 +1,7 @@
 #pragma once
 
 #include "./LoxCallable.h"
+#include "./Return.h"
 #include "./../Parser/Stmt/StmtHeaders.h"
 
 /**

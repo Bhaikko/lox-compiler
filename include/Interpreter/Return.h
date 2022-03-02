@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace Interpreter {
+namespace Runtime {
     /**
      * @brief Exception because it will be used to return from 
      * Call stack of cpp and return value of Lox function

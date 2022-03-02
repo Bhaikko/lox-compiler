@@ -284,7 +284,7 @@ void* Interpreter::visitReturnStmt(Stmt::Return* stmt)
         value = static_cast<void*>(evaluate(stmt->value));
     }
 
-    
+    throw new Runtime::Return(value);
 }
 
 void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)

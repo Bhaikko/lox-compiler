@@ -23,7 +23,11 @@ std::string* LoxFunction::call(Interpreter* interpreter, std::vector<std::string
         );
     }
 
-    interpreter->executeBlock(declaration->body, environment);
+    try {
+        interpreter->executeBlock(declaration->body, environment);
+    } catch (Runtime::Return returnValue) {
+        return static_cast<std::string*>(returnValue.value);
+    }
 
     return nullptr;
 }

@@ -5,11 +5,7 @@
 #include "./../Parser/Expression/ExpressionHeaders.h"
 #include "./../Parser/Stmt/StmtHeaders.h"
 #include "./../Lox.h"
-
-#include "./RuntimeError.h"
-#include "./Environment.h"
-#include "./LoxCallable.h"
-#include "./LoxFunction.h"
+#include "./RuntimeHeaders.h"
 
 class Interpreter: 
     public Expr::Visitor<std::string*>,
