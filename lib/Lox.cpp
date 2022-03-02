@@ -57,8 +57,6 @@ void Lox::run(std::string* srcCode)
     }
 
     interpreter->interpret(statements);
-
-    // std::cout << *((new AstPrinter())->print(expression)) << std::endl;
 }
 
 void Lox::runFile(char* filepath) 

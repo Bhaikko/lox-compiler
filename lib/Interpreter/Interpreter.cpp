@@ -152,9 +152,7 @@ std::string* Interpreter::visitBinaryExpr(Expr::Binary* expr)
 std::string* Interpreter::visitCallExpr(Expr::Call* expr)
 {
     // MAY NEED TO FIX THIS IF FUNCTIONS DOESNT WORK
-    // std::string* callee = evaluate(expr->callee);
-
-    std::cout << *evaluate(expr->callee) << std::endl;
+    void* callee = static_cast<void*>(evaluate(expr->callee));
 
     // Contains evaluated arguements
     std::vector<std::string*>* arguements = new std::vector<std::string*>();
@@ -163,9 +161,9 @@ std::string* Interpreter::visitCallExpr(Expr::Call* expr)
         arguements->push_back(evaluate(arguement));
     }
 
-    // Typecasting current calle expression having name and arguements 
-    // to LoxCallable function    
-    if (LoxCallable* function = dynamic_cast<LoxCallable*>(expr->callee)) {
+    // No need to dynamic cast
+    // Since Environment stores the function as void*
+    if (LoxCallable* function = static_cast<LoxCallable*>(callee)) {
         // Handling Errors before calling a function
         if (arguements->size() != function->arity()) {
             throw new RuntimeError(
@@ -174,7 +172,6 @@ std::string* Interpreter::visitCallExpr(Expr::Call* expr)
                 std::to_string(arguements->size()) + "."
             );
         }
-
         // Calling the Function by its name and evaluated arguements
         return function->call(this, arguements);
 
@@ -210,6 +207,7 @@ void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
 void* Interpreter::visitPrintStmt(Stmt::Print* stmt)
 {
     std::string* value = evaluate(stmt->expression);
+    
     std::cout << stringify(value) << std::endl;
 
     return nullptr;
@@ -294,12 +292,6 @@ std::string Interpreter::stringify(std::string* object)
     if (object == nullptr) {
         return "nil";
     }
-
-    // if (isDouble(object)) {
-    //     if (object->substr(object->size() - 2, 2) == ".0") {
-    //         return object->substr(0, object->size() - 2);
-    //     }
-    // }
     
     return *object;
 }
