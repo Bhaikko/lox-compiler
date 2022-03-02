@@ -12,6 +12,7 @@ namespace Stmt {
     class If;
     class While;
     class Function;
+    class Return;
     
     template <class T>
     class Visitor
@@ -24,6 +25,7 @@ namespace Stmt {
             virtual T visitIfStmt(Stmt::If* stmt) { return T(); }
             virtual T visitWhileStmt(Stmt::While* stmt) { return T(); }
             virtual T visitFunctionStmt(Stmt::Function* stmt) { return T(); }
+            virtual T visitReturnStmt(Stmt::Return* stmt) { return T(); }
     };
 
     class Stmt

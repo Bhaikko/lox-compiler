@@ -7,7 +7,7 @@
     funDecl     ->  "fun" function;
     varDecl     ->  "var" IDENTIFIER ( "=" expression )? ";" ;
     statement   ->  exprStmt | printStmt | block | ifStmt |
-                    whileStmt | forStmt;
+                    whileStmt | forStmt | returnStmt;
 
     function    ->  IDENTIFIER "(" parameters? ")" block ;
     exprStmt    ->  expression ";" ;
@@ -19,6 +19,7 @@
     forStmt     ->  "for" "(" (varDevl | exprStmt | ";" )
                     expression? ";" 
                     expression? ")" statement ;
+    returnStmt  ->  "return" expression? ";" ;
 
     expression  ->  assignment;
     assignment  ->  IDENTIFIER "=" assignment | logic_or ;
