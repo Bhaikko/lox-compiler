@@ -256,7 +256,9 @@ void* Interpreter::visitFunctionStmt(Stmt::Function* stmt)
     // Convertin
     // Compile Time representation of function
     // Runtime representation
-    LoxFunction* function = new LoxFunction(stmt);
+    // The below env is active when function is declared 
+    // Not when the function is called
+    LoxFunction* function = new LoxFunction(stmt, environment);
     environment->define(stmt->name->lexeme, function);
 
     return nullptr;

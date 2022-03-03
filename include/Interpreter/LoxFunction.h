@@ -12,9 +12,10 @@ class LoxFunction: public LoxCallable
 {
     public:
         Stmt::Function* declaration;
+        Environment* closure;
 
     public:
-        LoxFunction(Stmt::Function* declaration);
+        LoxFunction(Stmt::Function* declaration, Environment* closure);
         virtual unsigned int arity() override;
         virtual std::string* call(Interpreter* interpreter, std::vector<std::string*>* arguments) override;
 

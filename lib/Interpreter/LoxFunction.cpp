@@ -1,8 +1,9 @@
 #include "./../../include/Interpreter/LoxFunction.h"
 
-LoxFunction::LoxFunction(Stmt::Function* declaration)
+LoxFunction::LoxFunction(Stmt::Function* declaration, Environment* closure)
 {
     this->declaration = declaration;
+    this->closure = closure;
 }
 
 unsigned int LoxFunction::arity()
@@ -12,8 +13,9 @@ unsigned int LoxFunction::arity()
 
 std::string* LoxFunction::call(Interpreter* interpreter, std::vector<std::string*>* arguments)
 {
-    // Creating local scope for Function call
-    Environment* environment = new Environment(interpreter->globals);
+    // Creating local scope for Function call 
+    // with closure environment as it parent
+    Environment* environment = new Environment(closure);
 
     // Binding each arguement pair in Environment
     for (unsigned int i = 0; i < declaration->params->size(); i++) {

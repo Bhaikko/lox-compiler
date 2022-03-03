@@ -3,7 +3,8 @@ fun fib(n) {
         return n;
     }
 
-    var first = fib(n - 2);
+    var first = 1;
+    first = fib(n - 2);
     var second = fib(n - 1);
 
     print first;
