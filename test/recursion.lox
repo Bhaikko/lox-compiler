@@ -3,10 +3,16 @@ fun fib(n) {
         return n;
     }
 
-    return fib(n - 2) + fib(n - 1);
+    var first = fib(n - 2);
+    var second = fib(n - 1);
+
+    print first;
+
+    // return fib(n - 2) + fib(n - 1);
+    print first + second;
 }
 
-
-for (var i = 0; i < 20; i = i + 1) {
-   print fib(i);
-}
+print fib(5);
+// for (var i = 0; i < 20; i = i + 1) {
+   // print fib(i);
+// }

@@ -8,4 +8,6 @@
 ## Refactoring Notes
 * Add Interpreter namespace, Runtime namespace
 * Refactor Visitor pattern for generic types in Expression
-* No catch on runtime errors fix
+
+## Existing Issues
+* Recrusion not working
