@@ -23,7 +23,9 @@ public Stmt::Visitor<void*>
     public:
         Resolver(Interpreter* interpreter);
 
-    // public:
+    // Environment maps are read when we resolve variable expressions
+    public:
+        virtual std::string* visitVariableExpr(Expr::Variable* expr);
 
 
     public:
@@ -36,6 +38,7 @@ public Stmt::Visitor<void*>
         void resolve(Stmt::Stmt* statement);
         void resolve(Expr::Expr* statement);
         void resolve(std::vector<Stmt::Stmt*>* statements);
+        void resolveLocal(Expr::Expr* expr, Token* name);
         void declare(Token* name);
         void define(Token* name);
 };

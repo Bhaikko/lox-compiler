@@ -8,6 +8,24 @@ Resolver::Resolver(Interpreter* interpreter)
 }
 
 
+std::string* Resolver::visitVariableExpr(Expr::Variable* expr)
+{
+    if (
+        !scopes->empty() &&
+        scopes->top()->at(*expr->name->lexeme) == false
+    ) {
+        // Variable is declared but have not been defined
+        // Therefore we throw an error
+        Lox::error(
+            expr->name,
+            "Can't read local variable in its own initializer."
+        );
+    }
+
+    resolveLocal(expr, expr->name);
+    return nullptr;
+}
+
 void* Resolver::visitVarStmt(Stmt::Var* stmt)
 {
     // Binding done in two steps: Declaring and Defining 
@@ -78,4 +96,36 @@ void Resolver::define(Token* name)
 
     // Variable fully initialised and available for use
     (*scopes->top())[*name->lexeme] = true;
+}
+
+void Resolver::resolveLocal(Expr::Expr* expr, Token* name)
+{
+    std::stack<std::unordered_map<std::string, bool>*>* tempScopes = 
+        new std::stack<std::unordered_map<std::string, bool>*>();
+
+    int depth = 0;      // Depth in scopes, where the variable is found
+    while (!scopes->empty()) {
+        if (
+            scopes->top()->find(*name->lexeme) != 
+            scopes->top()->end()
+        ) {
+            interpreter->resolve(expr, depth);
+            break;
+        } else {
+            tempScopes->push(scopes->top());
+            scopes->pop();
+            depth++;
+        }
+    }
+
+    // If the above whole loop runs and scopes becomes empty
+    // Then the variable in the block is defined in Global scope
+
+    // Trasfering all the traveresed scopes back to main scope
+    while (!tempScopes->empty()) {
+        scopes->push(tempScopes->top());
+        tempScopes->pop();
+    }
+
+    delete tempScopes;
 }

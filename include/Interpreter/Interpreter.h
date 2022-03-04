@@ -73,6 +73,7 @@ class Interpreter:
         // Evaluates the expression and displays in proper format
         void interpret(std::vector<Stmt::Stmt*>* statements);
         void setupNativeFunctions();
+        void resolve(Expr::Expr* expr, int depth);
 
     
 };
