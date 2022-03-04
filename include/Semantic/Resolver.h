@@ -25,12 +25,14 @@ public Stmt::Visitor<void*>
 
     // Environment maps are read when we resolve variable expressions
     public:
-        virtual std::string* visitVariableExpr(Expr::Variable* expr);
+        virtual std::string* visitAssignExpr(Expr::Assign* expr) override;
+        virtual std::string* visitVariableExpr(Expr::Variable* expr) override;
 
 
     public:
-        virtual void* visitVarStmt(Stmt::Var* stmt) override;
         virtual void* visitBlockStmt(Stmt::Block* stmt) override;
+        virtual void* visitFunctionStmt(Stmt::Function* stmt) override;
+        virtual void* visitVarStmt(Stmt::Var* stmt) override;
 
     private:
         void beginScope();
@@ -39,6 +41,7 @@ public Stmt::Visitor<void*>
         void resolve(Expr::Expr* statement);
         void resolve(std::vector<Stmt::Stmt*>* statements);
         void resolveLocal(Expr::Expr* expr, Token* name);
+        void resolveFunction(Stmt::Function* stmt);
         void declare(Token* name);
         void define(Token* name);
 };

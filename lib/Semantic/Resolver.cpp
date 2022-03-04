@@ -26,15 +26,26 @@ std::string* Resolver::visitVariableExpr(Expr::Variable* expr)
     return nullptr;
 }
 
+std::string* Resolver::visitAssignExpr(Expr::Assign* expr)
+{
+    // Resolving the expression for the assigned variable
+    resolve(expr->value);
+
+    // resolve the variable thats being assigned to
+    resolveLocal(expr, expr->name);
+
+    return nullptr;
+}
+
 void* Resolver::visitVarStmt(Stmt::Var* stmt)
 {
     // Binding done in two steps: Declaring and Defining 
 
-    // declare(stmt->name);
+    declare(stmt->name);
     if (stmt->initializer != nullptr) {
         resolve(stmt->initializer);
     }
-    // define(stmt->name);
+    define(stmt->name);
     return nullptr;
 }
 
@@ -45,6 +56,17 @@ void* Resolver::visitBlockStmt(Stmt::Block* stmt)
     resolve(stmt->statements);
     endScope();
 
+    return nullptr;
+}
+
+void* Resolver::visitFunctionStmt(Stmt::Function* stmt)
+{
+    // We declare and define function first then resolve its body
+    // to support recursion to refer itself
+    declare(stmt->name);
+    define(stmt->name);
+
+    resolveFunction(stmt);
     return nullptr;
 }
 
@@ -128,4 +150,20 @@ void Resolver::resolveLocal(Expr::Expr* expr, Token* name)
     }
 
     delete tempScopes;
+}
+
+void Resolver::resolveFunction(Stmt::Function* function)
+{
+    beginScope();
+
+    for (Token* param: *function->params) {
+        declare(param);
+        define(param);
+    }
+
+    // In Static analysis, we immediately traverse into body 
+    // In runtime, body was touched when the function was called
+    resolve(function->body);
+
+    endScope();
 }
