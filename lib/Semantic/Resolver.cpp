@@ -37,6 +37,101 @@ std::string* Resolver::visitAssignExpr(Expr::Assign* expr)
     return nullptr;
 }
 
+
+std::string* Resolver::visitBinaryExpr(Expr::Binary* expr)
+{
+    resolve(expr->left);
+    resolve(expr->right);
+
+    return nullptr;
+}
+
+std::string* Resolver::visitCallExpr(Expr::Call* expr)
+{
+    resolve(expr->callee);
+
+    for (Expr::Expr* argument: *expr->arguments) {
+        resolve(argument);
+    }
+
+    return nullptr;
+}
+
+std::string* Resolver::visitGroupingExpr(Expr::Grouping* expr)
+{
+    resolve(expr->expression);
+
+    return nullptr;
+}
+
+std::string* Resolver::visitLiteralExpr(Expr::Literal* expr)
+{
+    // Literals expression doesnt mention any variables 
+    // and doesnt contain any subexpresison
+
+    return nullptr;
+}
+
+std::string* Resolver::visitLogicalExpr(Expr::Logical* expr)
+{
+    // Since short circuiting not considered in static analysis
+    // We resolve both expressions
+
+    resolve(expr->left);
+    resolve(expr->right);
+
+    return nullptr;
+}
+
+std::string* Resolver::visitUnaryExpr(Expr::Unary* expr)
+{
+    resolve(expr->right);
+    return nullptr;
+}
+
+void* Resolver::visitExpressionStmt(Stmt::Expression* stmt)
+{
+    resolve(stmt->expression);
+    return nullptr;
+}
+
+void* Resolver::visitIfStmt(Stmt::If* stmt)
+{
+    // condition and both branches are resolved regardless of
+    // condition evaluation
+    resolve(stmt->condition);
+    resolve(stmt->thenBranch);
+
+    if (stmt->elseBranch != nullptr) {
+        resolve(stmt->elseBranch);
+    }
+
+    return nullptr;
+}
+
+void* Resolver::visitPrintStmt(Stmt::Print* stmt)
+{
+    resolve(stmt->expression);
+    return nullptr;
+}
+
+void* Resolver::visitReturnStmt(Stmt::Return* stmt)
+{
+    if (stmt->value != nullptr) {
+        resolve(stmt->value);
+    }
+
+    return nullptr;
+}
+
+void* Resolver::visitWhileStmt(Stmt::While* stmt)
+{
+    resolve(stmt->condition);
+    resolve(stmt->body);
+
+    return nullptr;
+}
+
 void* Resolver::visitVarStmt(Stmt::Var* stmt)
 {
     // Binding done in two steps: Declaring and Defining 

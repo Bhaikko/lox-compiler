@@ -26,13 +26,23 @@ public Stmt::Visitor<void*>
     // Environment maps are read when we resolve variable expressions
     public:
         virtual std::string* visitAssignExpr(Expr::Assign* expr) override;
+        virtual std::string* visitBinaryExpr(Expr::Binary* expr) override;
+        virtual std::string* visitCallExpr(Expr::Call* expr) override;
+        virtual std::string* visitGroupingExpr(Expr::Grouping* expr) override;
+        virtual std::string* visitLiteralExpr(Expr::Literal* expr) override;
+        virtual std::string* visitLogicalExpr(Expr::Logical* expr) override;
+        virtual std::string* visitUnaryExpr(Expr::Unary* expr) override;
         virtual std::string* visitVariableExpr(Expr::Variable* expr) override;
-
 
     public:
         virtual void* visitBlockStmt(Stmt::Block* stmt) override;
+        virtual void* visitExpressionStmt(Stmt::Expression* stmt) override;
         virtual void* visitFunctionStmt(Stmt::Function* stmt) override;
+        virtual void* visitIfStmt(Stmt::If* stmt) override;
+        virtual void* visitPrintStmt(Stmt::Print* stmt) override;
+        virtual void* visitReturnStmt(Stmt::Return* stmt) override;
         virtual void* visitVarStmt(Stmt::Var* stmt) override;
+        virtual void* visitWhileStmt(Stmt::While* stmt) override;
 
     private:
         void beginScope();
@@ -53,4 +63,10 @@ Nodes interesting when resolving variables
     and binds its parameters in that scope
 * A variable declaration adds a new variable to the current scope
 * Variable and assignment expresions need to have their resolved
+*/
+
+/*
+For other statements and expression,
+visit methods are required to recurse down syntax tree but no 
+declaration of variable and scopes required
 */
