@@ -9,6 +9,7 @@
 #include "./Scanner/Scanner.h"
 #include "./Parser/Parser.h"
 #include "./Parser/AstPrinter.h"
+#include "./Semantic/Resolver.h"
 #include "./Interpreter/Interpreter.h"
 #include "./Interpreter/RuntimeError.h"
 

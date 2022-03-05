@@ -44,12 +44,14 @@ public Stmt::Visitor<void*>
         virtual void* visitVarStmt(Stmt::Var* stmt) override;
         virtual void* visitWhileStmt(Stmt::While* stmt) override;
 
+    public:
+        void resolve(std::vector<Stmt::Stmt*>* statements);
+        
     private:
         void beginScope();
         void endScope();
         void resolve(Stmt::Stmt* statement);
         void resolve(Expr::Expr* statement);
-        void resolve(std::vector<Stmt::Stmt*>* statements);
         void resolveLocal(Expr::Expr* expr, Token* name);
         void resolveFunction(Stmt::Function* stmt);
         void declare(Token* name);

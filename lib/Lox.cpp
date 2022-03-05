@@ -50,6 +50,9 @@ void Lox::run(std::string* srcCode)
     if (hadError) {
         return;
     }
+    
+    Resolver* resolver = new Resolver(interpreter);
+    resolver->resolve(statements);
 
     if (Lox::hadRuntimeError) {
         return;
