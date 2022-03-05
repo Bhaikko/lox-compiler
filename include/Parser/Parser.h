@@ -57,6 +57,7 @@ class Parser
          */
         Stmt::Stmt* forStatement();
         Stmt::Stmt* varDeclaration();
+        Stmt::Stmt* classDeclaration();
         std::vector<Stmt::Stmt*>* block();
         Stmt::Stmt* function(std::string kind);
         Stmt::Stmt* returnStatement();

@@ -410,6 +410,10 @@ std::vector<Stmt::Stmt*>* Parser::block()
 Stmt::Stmt* Parser::declaration()
 {
     try {
+        if (match(TokenType::CLASS)) {
+            return classDeclaration();
+        }
+
         if (match(TokenType::FUN)) {
             return function("function");
         }
@@ -471,6 +475,22 @@ Stmt::Stmt* Parser::varDeclaration()
     return new Stmt::Var(name, initializer);
 }
 
+Stmt::Stmt* Parser::classDeclaration()
+{
+    Token* name = consume(TokenType::IDENTIFIER, "Expect class name.");
+    
+    consume(TokenType::LEFT_BRACE, "Expect '{' before class body.");
+
+    std::vector<Stmt::Function*>* methods = new std::vector<Stmt::Function*>();
+    while (!check(TokenType::RIGHT_BRACE) && !isAtEnd()) {
+        methods->push_back(static_cast<Stmt::Function*>(function("method")));
+    }
+
+    consume(TokenType::RIGHT_BRACE, "Expect '}' after class body.");
+
+    return new Stmt::Class(name, methods);
+}
+
 Stmt::Stmt* Parser::returnStatement()
 {
     Token* keyword = previous();
@@ -488,10 +508,6 @@ Stmt::Stmt* Parser::returnStatement()
 bool Parser::match(std::vector<TokenType> tokenTypes)
 {
     for (TokenType type : tokenTypes) {
-        // if (check(type)) {
-        //     advance();
-        //     return true;
-        // }
         if (match(type)) {
             return true;
         }
