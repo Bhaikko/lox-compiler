@@ -57,6 +57,11 @@ void* Environment::getAt(int distance, std::string name)
     return ancestor(distance)->values->at(name);
 }
 
+void Environment::assignAt(int distance, Token* name, void* value)
+{
+    (*ancestor(distance)->values)[*name->lexeme] = value;
+}
+
 Environment* Environment::ancestor(int distance)
 {
     Environment* environment = this;

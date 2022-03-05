@@ -58,5 +58,8 @@ class Environment
          * @return void* 
          */
         void* getAt(int distance, std::string name);
+        void assignAt(int distance, Token* name, void* value);
+
+    private:    
         Environment* ancestor(int distance);
 };

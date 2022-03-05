@@ -185,12 +185,23 @@ std::string* Interpreter::visitCallExpr(Expr::Call* expr)
 
 std::string* Interpreter::visitAssignExpr(Expr::Assign* expr)
 {
+    // Resolving method similar to Variable Expression
+    // This will require to update the variable values
     std::string* value = evaluate(expr->value);
-    environment->assign(
-        expr->name, 
-        static_cast<void*>(value)
-    );
 
+    if (locals->find(expr) != locals->end()) {
+        environment->assignAt(
+            locals->at(expr),
+            expr->name,
+            static_cast<void*>(value)
+        );
+    } else {
+        environment->assign(
+            expr->name, 
+            static_cast<void*>(value)
+        );
+    }
+    
     return value;
 }
 
