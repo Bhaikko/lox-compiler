@@ -13,11 +13,13 @@ namespace Stmt {
     class While;
     class Function;
     class Return;
+    class Class;
     
     template <class T>
     class Visitor
     {
         public:
+            virtual T visitClassStmt(Stmt::Class* stmt) { return T(); }
             virtual T visitPrintStmt(Stmt::Print* stmt) { return T(); }
             virtual T visitExpressionStmt(Stmt::Expression* stmt) { return T(); }
             virtual T visitVarStmt(Stmt::Var* stmt) { return T(); }

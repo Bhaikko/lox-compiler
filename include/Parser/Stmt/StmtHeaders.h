@@ -9,3 +9,4 @@
 #include "./While.h"
 #include "./Function.h"
 #include "./Return.h"
+#include "./Class.h"

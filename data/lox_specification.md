@@ -3,9 +3,10 @@
 ### Expression Grammar
 ```
     program     ->  declaration* EOF ;
-    declaration ->  funDecl | varDecl | statement;
+    declaration ->  funDecl | varDecl | classDecl | statement;
     funDecl     ->  "fun" function;
     varDecl     ->  "var" IDENTIFIER ( "=" expression )? ";" ;
+    classDecl   ->  "class" IDENTIFIER "{" function* "}" ;
     statement   ->  exprStmt | printStmt | block | ifStmt |
                     whileStmt | forStmt | returnStmt;
 
