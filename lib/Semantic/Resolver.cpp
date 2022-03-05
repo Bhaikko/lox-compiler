@@ -12,17 +12,17 @@ Resolver::Resolver(Interpreter* interpreter)
 
 std::string* Resolver::visitVariableExpr(Expr::Variable* expr)
 {
-    if (
-        !scopes->empty() &&
-        scopes->top()->at(*expr->name->lexeme) == false
-    ) {
-        // Variable is declared but have not been defined
-        // Therefore we throw an error
-        Lox::error(
-            expr->name,
-            "Can't read local variable in its own initializer."
-        );
-    }
+    // if (
+    //     !scopes->empty() &&
+    //     scopes->top()->at(*expr->name->lexeme) == false
+    // ) {
+    //     // Variable is declared but have not been defined
+    //     // Therefore we throw an error
+    //     Lox::error(
+    //         expr->name,
+    //         "Can't read local variable in its own initializer."
+    //     );
+    // }
 
     resolveLocal(expr, expr->name);
     return nullptr;

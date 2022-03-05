@@ -11,4 +11,4 @@
 * Refactor Visitor pattern for generic types in Expression
 
 ## Existing Issues
-* Recrusion not working
+* Recrusion and closures not working

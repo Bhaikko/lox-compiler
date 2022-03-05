@@ -5,8 +5,8 @@ fun sub(a, b) {
 }
 
 fun add(a, b) {
-    var a = sub(a, b);
-    return a + b;
+    var x = sub(a, b);
+    return x + b;
 }
 
 fun sayHi(first, last) {
