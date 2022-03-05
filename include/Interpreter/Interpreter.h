@@ -18,6 +18,9 @@ class Interpreter:
         // Changes when entering and exiting scope
         Environment* environment;
 
+        // Associates each syntax tree node with its resolved data
+        std::unordered_map<Expr::Expr*, int>* locals;
+
     public:
         Interpreter();
 
@@ -43,6 +46,12 @@ class Interpreter:
         virtual void* visitWhileStmt(Stmt::While* stmt) override;
         virtual void* visitFunctionStmt(Stmt::Function* stmt) override;
         virtual void* visitReturnStmt(Stmt::Return* stmt) override;
+
+    private:
+        // Resolver utilities
+        void* lookUpVariable(Token* name, Expr::Expr* expr);
+        void* getAt(int distance, std::string name);
+        Environment* ancestor(int distance);
 
     private:
         // Evaluation of Every expression is done in post order

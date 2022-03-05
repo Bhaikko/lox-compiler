@@ -4,6 +4,8 @@ Interpreter::Interpreter()
 {
     this->globals = new Environment();
     this->environment = this->globals;
+
+    this->locals = new std::unordered_map<Expr::Expr*, int>();
 }
 
 void Interpreter::setupNativeFunctions()
@@ -194,7 +196,9 @@ std::string* Interpreter::visitAssignExpr(Expr::Assign* expr)
 
 std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
 {
-    return static_cast<std::string*>(environment->get(expr->name));
+    // return static_cast<std::string*>(environment->get(expr->name));
+
+    return static_cast<std::string*>(lookUpVariable(expr->name, expr));
 }
 
 void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
@@ -300,6 +304,20 @@ void Interpreter::interpret(std::vector<Stmt::Stmt*>* statements)
     }
 }
 
+void* Interpreter::lookUpVariable(Token* name, Expr::Expr* expr)
+{
+    // If variable isnt present in locals
+    // It is assumed in globals variables
+    // Which throws runtime error if undefined variable accessed
+    if (locals->find(expr) != locals->end()) {
+        // Found a local variable
+        return environment->getAt(locals->at(expr), *name->lexeme);
+    } else {
+        return globals->get(name);
+    }
+}
+
+
 std::string Interpreter::stringify(std::string* object)
 {
     if (object == nullptr) {
@@ -334,6 +352,12 @@ void Interpreter::executeBlock(std::vector<Stmt::Stmt*>* statments, Environment*
 std::string* Interpreter::evaluate(Expr::Expr* expr)
 {
     return expr->accept(this);
+}
+
+void Interpreter::resolve(Expr::Expr* expr, int depth)
+{
+    // Define variable's resolved location
+    (*locals)[expr] = depth;
 }
 
 std::string* Interpreter::isTruthy(std::string* object)

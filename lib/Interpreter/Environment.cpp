@@ -47,3 +47,22 @@ void Environment::assign(Token* name, void* value)
 
     throw new RuntimeError(name, "Undefined variable '" + *name->lexeme + "'.");
 }
+
+
+void* Environment::getAt(int distance, std::string name)
+{
+    // No need to check for variable existence
+    // Since the resolver already found it and 
+    // declared it in locals
+    return ancestor(distance)->values->at(name);
+}
+
+Environment* Environment::ancestor(int distance)
+{
+    Environment* environment = this;
+    for (int i = 0; i < distance; i++) {
+        environment = environment->enclosing;
+    }
+
+    return environment;
+}

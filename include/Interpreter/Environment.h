@@ -40,5 +40,23 @@ class Environment
          * @param value 
          */
         void assign(Token* name, void* value);
+
+        /**
+         * @brief Searches dynamically at runtime for the variable definition
+         * 
+         * @param name 
+         * @return void* 
+         */
         void* get(Token* name);
+
+    public:
+        /**
+         * @brief Searches the variable based on distance obtained static analyis in resolver
+         * 
+         * @param distance 
+         * @param name 
+         * @return void* 
+         */
+        void* getAt(int distance, std::string name);
+        Environment* ancestor(int distance);
 };
