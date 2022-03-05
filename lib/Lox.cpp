@@ -29,7 +29,7 @@ void Lox::error(Token* token, std::string message)
 
 void Lox::runtimeError(RuntimeError error)
 {
-    std::cerr << "[line " << error.token->line << " ] " << error.what() << std::endl;
+    std::cerr << "[line " << error.token->line << "] " << error.what() << std::endl;
 
     hadRuntimeError = true;
 }
@@ -51,12 +51,18 @@ void Lox::run(std::string* srcCode)
         return;
     }
     
+    // Resolver add a pass to source code for analysis 
+    // which could generate warnings too
     Resolver* resolver = new Resolver(interpreter);
     resolver->resolve(statements);
 
-    if (Lox::hadRuntimeError) {
+    if (hadError) {
         return;
     }
+
+    // if (Lox::hadRuntimeError) {
+    //     return;
+    // }
 
     interpreter->interpret(statements);
 }

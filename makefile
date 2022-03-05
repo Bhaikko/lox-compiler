@@ -26,6 +26,8 @@ PARSER_FILES = ./lib/Parser/ParseError.cpp \
 				./lib/Parser/Stmt/Function.cpp \
 				./lib/Parser/Stmt/Return.cpp \
 
+SEMANTICS_FILES = ./lib/Semantic/Resolver.cpp \
+
 TOOLS_FILES = 	./lib/Parser/AstPrinter.cpp \
 
 INTERPRETER_FILES = ./lib/Interpreter/RuntimeError.cpp \
@@ -42,5 +44,5 @@ SRCS_CPP = \
 				./src/main.cpp \
 
 run:
-	$(CXX) $(SCANNAR_FILES) $(PARSER_FILES) $(INTERPRETER_FILES) $(TOOLS_FILES) $(NATIVE_FILES) $(SRCS_CPP) -o application $(CPPFLAGS) 
+	$(CXX) $(SCANNAR_FILES) $(PARSER_FILES) $(SEMANTICS_FILES) $(INTERPRETER_FILES) $(TOOLS_FILES) $(NATIVE_FILES) $(SRCS_CPP) -o application $(CPPFLAGS) 
 

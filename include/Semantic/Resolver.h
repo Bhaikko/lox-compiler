@@ -5,12 +5,23 @@
 
 #include "./../Parser/Expression/ExpressionHeaders.h"
 #include "./../Parser/Stmt/StmtHeaders.h"
-#include "./../Interpreter/Interpreter.h"
+
+class Interpreter;
+
+enum FunctionType 
+{
+    NONE,
+    FUNCTION
+};
 
 class Resolver: 
 public Expr::Visitor<std::string*>,
 public Stmt::Visitor<void*>
 {
+    private:
+        // Keeping track whether or not the code is inside a function declaration
+        FunctionType currentFunction;
+
     public:
         // Each element in stack represents a single block scope.
         // Scope stack is only for local block scopes
@@ -46,14 +57,14 @@ public Stmt::Visitor<void*>
 
     public:
         void resolve(std::vector<Stmt::Stmt*>* statements);
-        
+
     private:
         void beginScope();
         void endScope();
         void resolve(Stmt::Stmt* statement);
         void resolve(Expr::Expr* statement);
         void resolveLocal(Expr::Expr* expr, Token* name);
-        void resolveFunction(Stmt::Function* stmt);
+        void resolveFunction(Stmt::Function* stmt, FunctionType type);
         void declare(Token* name);
         void define(Token* name);
 };

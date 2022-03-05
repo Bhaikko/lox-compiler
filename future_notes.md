@@ -4,6 +4,7 @@
 * Add support for Bitwise operator
 * Handle Divide By Zero Exception
 * Add support for break and continue
+* Add resolver method to report a warning if local variable is never used
 
 ## Refactoring Notes
 * Add Interpreter namespace, Runtime namespace

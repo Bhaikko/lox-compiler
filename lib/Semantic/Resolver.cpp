@@ -5,6 +5,8 @@ Resolver::Resolver(Interpreter* interpreter)
     this->interpreter = interpreter;
 
     scopes = new std::stack<std::unordered_map<std::string, bool>*>();
+
+    this->currentFunction = FunctionType::NONE;
 }
 
 
@@ -117,6 +119,10 @@ void* Resolver::visitPrintStmt(Stmt::Print* stmt)
 
 void* Resolver::visitReturnStmt(Stmt::Return* stmt)
 {
+    if (currentFunction == FunctionType::NONE) {
+        Lox::error(stmt->keyword, "Cant't return from top-level code.");
+    }
+
     if (stmt->value != nullptr) {
         resolve(stmt->value);
     }
@@ -161,7 +167,7 @@ void* Resolver::visitFunctionStmt(Stmt::Function* stmt)
     declare(stmt->name);
     define(stmt->name);
 
-    resolveFunction(stmt);
+    resolveFunction(stmt, FunctionType::FUNCTION);
     return nullptr;
 }
 
@@ -199,6 +205,14 @@ void Resolver::declare(Token* name)
     }
 
     std::unordered_map<std::string, bool>* scope = scopes->top();
+
+    // If there is collision when declaring variable in local scope
+    // We throw error
+    if (scope->find(*name->lexeme) != scope->end()) {
+        Lox::error(name,
+            "Already variable with this name in this scope."
+        );
+    }
 
     // Boolean related to string represents whether the variable
     // has finished resolving the initializer
@@ -247,8 +261,13 @@ void Resolver::resolveLocal(Expr::Expr* expr, Token* name)
     delete tempScopes;
 }
 
-void Resolver::resolveFunction(Stmt::Function* function)
+void Resolver::resolveFunction(Stmt::Function* function, FunctionType type)
 {
+    // We keep track of enclosingFunction as local function can be defined
+    // Hence, a track of 'how many' we're in is required
+    FunctionType enclosingFunction = currentFunction;
+    currentFunction = type;
+
     beginScope();
 
     for (Token* param: *function->params) {
@@ -261,4 +280,5 @@ void Resolver::resolveFunction(Stmt::Function* function)
     resolve(function->body);
 
     endScope();
+    currentFunction = enclosingFunction;
 }
