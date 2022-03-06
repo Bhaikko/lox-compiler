@@ -8,7 +8,9 @@
 
 ## Refactoring Notes
 * Add Interpreter namespace, Runtime namespace
+* Add Namespace for Lox Types
 * Refactor Visitor pattern for generic types in Expression
 
 ## Existing Issues
+* Fix LoxCallable call() from std::string* to void*
 * Recrusion and closures not working

@@ -5,4 +5,5 @@
 #include "./LoxCallable.h"
 #include "./LoxFunction.h"
 #include "./LoxClass.h"
+#include "./LoxInstance.h"
 #include "./Return.h"

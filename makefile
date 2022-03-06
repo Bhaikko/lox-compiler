@@ -25,6 +25,7 @@ PARSER_FILES = ./lib/Parser/ParseError.cpp \
 				./lib/Parser/Stmt/While.cpp \
 				./lib/Parser/Stmt/Function.cpp \
 				./lib/Parser/Stmt/Return.cpp \
+				./lib/Parser/Stmt/Class.cpp \
 
 SEMANTICS_FILES = ./lib/Semantic/Resolver.cpp \
 
@@ -34,6 +35,8 @@ INTERPRETER_FILES = ./lib/Interpreter/RuntimeError.cpp \
 					./lib/Interpreter/Environment.cpp \
 					./lib/Interpreter/LoxCallable.cpp \
 					./lib/Interpreter/LoxFunction.cpp \
+					./lib/Interpreter/LoxInstance.cpp \
+					./lib/Interpreter/LoxClass.cpp \
 					./lib/Interpreter/Interpreter.cpp \
 					./lib/Interpreter/Return.cpp \
 					./lib/Lox.cpp \
