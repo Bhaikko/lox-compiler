@@ -47,6 +47,7 @@ public Stmt::Visitor<void*>
 
     public:
         virtual void* visitBlockStmt(Stmt::Block* stmt) override;
+        virtual void* visitClassStmt(Stmt::Class* stmt) override;
         virtual void* visitExpressionStmt(Stmt::Expression* stmt) override;
         virtual void* visitFunctionStmt(Stmt::Function* stmt) override;
         virtual void* visitIfStmt(Stmt::If* stmt) override;

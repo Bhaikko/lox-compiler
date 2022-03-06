@@ -219,6 +219,20 @@ void* Interpreter::visitExpressionStmt(Stmt::Expression* stmt)
     return nullptr;
 }
 
+void* Interpreter::visitClassStmt(Stmt::Class* stmt)
+{
+    // Seperate Define and Assign because of Global Classes
+    // Which are not handled by Resolver
+    environment->define(stmt->name->lexeme, nullptr);
+    LoxClass* klass = new LoxClass(stmt->name->lexeme);
+
+    // The two stage variable binding process allows references to the class 
+    // inside its own methods
+    environment->assign(stmt->name, klass);
+
+    return nullptr;
+}
+
 void* Interpreter::visitPrintStmt(Stmt::Print* stmt)
 {
     std::string* value = evaluate(stmt->expression);

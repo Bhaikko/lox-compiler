@@ -4,4 +4,5 @@
 #include "./Environment.h"
 #include "./LoxCallable.h"
 #include "./LoxFunction.h"
+#include "./LoxClass.h"
 #include "./Return.h"

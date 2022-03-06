@@ -38,6 +38,7 @@ class Interpreter:
 
     // Statements Handling
     public:
+        virtual void* visitClassStmt(Stmt::Class* stmt) override;
         virtual void* visitPrintStmt(Stmt::Print* stmt) override;
         virtual void* visitExpressionStmt(Stmt::Expression* stmt) override;
         virtual void* visitVarStmt(Stmt::Var* stmt) override;

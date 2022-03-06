@@ -91,6 +91,14 @@ std::string* Resolver::visitUnaryExpr(Expr::Unary* expr)
     return nullptr;
 }
 
+void* Resolver::visitClassStmt(Stmt::Class* stmt)
+{
+    declare(stmt->name);
+    define(stmt->name);
+
+    return nullptr;
+}
+
 void* Resolver::visitExpressionStmt(Stmt::Expression* stmt)
 {
     resolve(stmt->expression);
