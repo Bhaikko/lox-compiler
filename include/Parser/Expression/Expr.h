@@ -11,6 +11,7 @@ namespace Expr {
     class Assign;
     class Logical;
     class Call;
+    class Get;
 
     // "Visitor base class"
     template <class T>
@@ -26,6 +27,7 @@ namespace Expr {
             virtual T visitAssignExpr(Assign* expr) { return T(); }
             virtual T visitLogicalExpr(Logical* expr) { return T(); }
             virtual T visitCallExpr(Call* expr) { return T(); }
+            virtual T visitGetExpr(Get* expr) { return T(); }
     };
 
     /**
