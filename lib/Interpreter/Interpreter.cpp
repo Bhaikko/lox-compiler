@@ -205,6 +205,20 @@ std::string* Interpreter::visitAssignExpr(Expr::Assign* expr)
     return value;
 }
 
+std::string* Interpreter::visitGetExpr(Expr::Get* expr)
+{
+    void* object = static_cast<void*>(evaluate(expr->object));
+
+    // If expression is not instance type, then error is throw
+    if (LoxInstance* instance = static_cast<LoxInstance*>(object)) {
+        return static_cast<std::string*>(instance->get(expr->name));
+    }
+
+    throw new RuntimeError(expr->name,
+        "Only instances have properties."
+    );
+}
+
 std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
 {
     // return static_cast<std::string*>(environment->get(expr->name));

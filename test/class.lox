@@ -5,3 +5,4 @@ class Human {
 }
 
 var human = Human();
+print human.a();
