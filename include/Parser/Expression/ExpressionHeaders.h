@@ -12,3 +12,4 @@
 #include "./Logical.h"
 #include "./Call.h"
 #include "./Get.h"
+#include "./Set.h"
