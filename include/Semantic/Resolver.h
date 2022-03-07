@@ -39,6 +39,7 @@ public Stmt::Visitor<void*>
         virtual std::string* visitAssignExpr(Expr::Assign* expr) override;
         virtual std::string* visitBinaryExpr(Expr::Binary* expr) override;
         virtual std::string* visitCallExpr(Expr::Call* expr) override;
+        virtual std::string* visitGetExpr(Expr::Get* expr) override;
         virtual std::string* visitGroupingExpr(Expr::Grouping* expr) override;
         virtual std::string* visitLiteralExpr(Expr::Literal* expr) override;
         virtual std::string* visitLogicalExpr(Expr::Logical* expr) override;

@@ -59,6 +59,15 @@ std::string* Resolver::visitCallExpr(Expr::Call* expr)
     return nullptr;
 }
 
+std::string* Resolver::visitGetExpr(Expr::Get* expr)
+{
+    // Since properties are looked up dynamically, they dont get resolved
+    // During resolution, expression to the left is resolved only
+    // Property access happens in interpreter
+    resolve(expr->object);
+    return nullptr;
+}
+
 std::string* Resolver::visitGroupingExpr(Expr::Grouping* expr)
 {
     resolve(expr->expression);
