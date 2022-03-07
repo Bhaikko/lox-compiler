@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <iostream>
 
 #include "./../Scanner/Token.h"
 #include "./RuntimeError.h"
@@ -21,4 +22,5 @@ class LoxInstance
 
     public:
         void* get(Token* name);
+        void set(Token* name, void* value);
 };

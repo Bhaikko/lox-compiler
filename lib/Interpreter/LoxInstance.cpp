@@ -17,3 +17,10 @@ void* LoxInstance::get(Token* name)
         "Undefined property '" + *name->lexeme + "'."
     );
 }
+
+void LoxInstance::set(Token* name, void* value)
+{
+    // Since freely creation of new fields on instances are allowed
+    // No need for chcking of field
+    (*fields)[*name->lexeme] = value;
+}

@@ -5,4 +5,5 @@ class Human {
 }
 
 var human = Human();
-print human.a();
+human.a = "asd";
+// print human.a;

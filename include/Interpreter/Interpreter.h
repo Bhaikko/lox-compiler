@@ -36,6 +36,7 @@ class Interpreter:
         virtual std::string* visitAssignExpr(Expr::Assign* expr) override;
         virtual std::string* visitLogicalExpr(Expr::Logical* expr) override;
         virtual std::string* visitCallExpr(Expr::Call* expr) override;
+        virtual std::string* visitSetExpr(Expr::Set* expr) override;
 
     // Statements Handling
     public:

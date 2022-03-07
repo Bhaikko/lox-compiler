@@ -219,6 +219,24 @@ std::string* Interpreter::visitGetExpr(Expr::Get* expr)
     );
 }
 
+std::string* Interpreter::visitSetExpr(Expr::Set* expr)
+{
+    void* object = static_cast<void*>(expr->object);
+
+    if (LoxInstance* set = static_cast<LoxInstance*>(object)) {
+        // Evaluating the object whole property is being set
+        std::string* value = evaluate(expr->value);
+
+        set->set(expr->name, static_cast<void*>(value));
+
+        return value;
+    } 
+
+    throw new RuntimeError(expr->name,
+        "Only instances have fields."
+    );
+}
+
 std::string* Interpreter::visitVariableExpr(Expr::Variable* expr)
 {
     // return static_cast<std::string*>(environment->get(expr->name));

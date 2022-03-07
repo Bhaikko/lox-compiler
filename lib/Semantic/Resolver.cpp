@@ -70,6 +70,9 @@ std::string* Resolver::visitGetExpr(Expr::Get* expr)
 
 std::string* Resolver::visitSetExpr(Expr::Set* expr)
 {
+    // Property will be evaluated dynamically
+    // Only object whose property is being set and
+    // value its being set to is required to be resolved
     resolve(expr->value);
     resolve(expr->object);
 
