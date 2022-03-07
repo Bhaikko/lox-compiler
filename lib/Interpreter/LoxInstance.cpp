@@ -4,6 +4,7 @@ LoxInstance::LoxInstance(LoxClass* klass)
 {
     this->klass = klass;
     this->fields = new std::unordered_map<std::string, void*>();
+
 }
 
 void* LoxInstance::get(Token* name)
@@ -21,6 +22,6 @@ void* LoxInstance::get(Token* name)
 void LoxInstance::set(Token* name, void* value)
 {
     // Since freely creation of new fields on instances are allowed
-    // No need for chcking of field
-    (*fields)[*name->lexeme] = value;
+    // No need for checking of field
+    (*fields)[*name->lexeme] = nullptr;
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <unordered_map>
-#include <string>
 #include <iostream>
+#include <string>
+#include <unordered_map>
 
 #include "./../Scanner/Token.h"
 #include "./RuntimeError.h"
@@ -14,7 +14,7 @@ class LoxInstance
     public:
         LoxClass* klass;
 
-    private:
+    public:
         std::unordered_map<std::string, void*>* fields;
 
     public:
