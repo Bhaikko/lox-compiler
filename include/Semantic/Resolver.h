@@ -45,6 +45,7 @@ public Stmt::Visitor<void*>
         virtual std::string* visitLogicalExpr(Expr::Logical* expr) override;
         virtual std::string* visitUnaryExpr(Expr::Unary* expr) override;
         virtual std::string* visitVariableExpr(Expr::Variable* expr) override;
+        virtual std::string* visitSetExpr(Expr::Set* expr) override;
 
     public:
         virtual void* visitBlockStmt(Stmt::Block* stmt) override;

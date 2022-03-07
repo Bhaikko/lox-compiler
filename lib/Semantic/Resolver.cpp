@@ -68,6 +68,14 @@ std::string* Resolver::visitGetExpr(Expr::Get* expr)
     return nullptr;
 }
 
+std::string* Resolver::visitSetExpr(Expr::Set* expr)
+{
+    resolve(expr->value);
+    resolve(expr->object);
+
+    return nullptr;
+}
+
 std::string* Resolver::visitGroupingExpr(Expr::Grouping* expr)
 {
     resolve(expr->expression);

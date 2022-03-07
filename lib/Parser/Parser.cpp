@@ -26,12 +26,14 @@ Expr::Expr* Parser::assignment()
         if (Expr::Variable* e = dynamic_cast<Expr::Variable*>(expr)) {
             Token* name = e->name;
             return new Expr::Assign(name, value);
+        } else if (Expr::Get* get = dynamic_cast<Expr::Get*>(expr)) {
+            return new Expr::Set(get->object, get->name, value);
         }
 
         // If l-value as expression isn't valid assigment target
         // We report an error
         error(equals, "Invalid Assignment target.");
-    }
+    } 
 
     /*
         The end result of this trick is an assignment expression tree node
